@@ -44,13 +44,13 @@ header h1 { font-family: 'DM Serif Display', serif; font-size: 18px; font-weight
 .ah-info p  { font-size:13px; opacity:0.8; margin-top:4px; }
 .ah-chips { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
 .chip { background:rgba(255,255,255,0.2); border-radius:20px; padding:3px 10px; font-size:11px; }
-.sec-title { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--cinza); margin-bottom:10px; display:flex; justify-content:space-between; }
+.sec-title { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--cinza); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
 .reg-card { background:#fff; border-radius:12px; margin-bottom:10px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.07); }
 .reg-head { padding:12px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
 .reg-head.open { border-bottom:1px solid #F3F4F6; }
 .reg-data  { font-size:12px; font-weight:600; color:var(--terra); }
 .reg-titulo{ font-size:14px; font-weight:500; margin-top:2px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.reg-chev  { color:var(--cinza); font-size:16px; transition:transform 0.2s; }
+.reg-chev  { color:var(--cinza); font-size:16px; transition:transform 0.2s; flex-shrink:0; margin-left:8px; }
 .reg-chev.open { transform:rotate(180deg); }
 .reg-body  { display:none; padding:14px; }
 .reg-body.open { display:block; }
@@ -86,6 +86,35 @@ input[type="file"] { display:none; }
 .empty { text-align:center; padding:40px 20px; color:var(--cinza); }
 .empty .eico { font-size:48px; margin-bottom:12px; }
 .info-box { background:#EFF6FF; border-radius:10px; padding:12px 14px; margin-top:8px; font-size:13px; color:#1D4ED8; line-height:1.5; }
+
+/* ── STOCK ── */
+.stock-resumo { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; padding-top:16px; }
+.stock-stat { background:#fff; border-radius:12px; padding:14px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.07); }
+.stock-stat-num { font-family:'DM Serif Display',serif; font-size:28px; }
+.stock-stat-num.ok { color:var(--verde-m); }
+.stock-stat-num.alert { color:var(--vermelho); }
+.stock-stat-label { font-size:11px; color:var(--cinza); margin-top:2px; }
+.alerta-box { background:#FEE2E2; border-radius:12px; padding:14px 16px; margin-bottom:16px; }
+.alerta-box-title { font-size:12px; font-weight:600; color:var(--vermelho); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px; }
+.alerta-item { font-size:13px; color:#7F1D1D; margin-bottom:6px; display:flex; align-items:flex-start; gap:6px; line-height:1.4; }
+.cat-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--cinza); margin:16px 0 8px; }
+.prod-card { background:#fff; border-radius:12px; padding:14px 16px; margin-bottom:8px; box-shadow:0 1px 3px rgba(0,0,0,0.07); display:flex; align-items:center; gap:12px; }
+.prod-card.esgotado { opacity:0.55; }
+.prod-info { flex:1; }
+.prod-nome { font-size:14px; font-weight:600; }
+.prod-det  { font-size:12px; color:var(--cinza); margin-top:2px; }
+.prod-acoes { display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+.toggle-stock { width:44px; height:24px; border-radius:12px; border:none; cursor:pointer; position:relative; transition:background 0.2s; flex-shrink:0; }
+.toggle-stock.on  { background:var(--verde-m); }
+.toggle-stock.off { background:#D1D5DB; }
+.toggle-stock::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:3px; transition:left 0.2s; }
+.toggle-stock.on::after  { left:23px; }
+.toggle-stock.off::after { left:3px; }
+.link-compra { font-size:11px; color:var(--terra); text-decoration:none; font-weight:600; }
+.link-compra:hover { text-decoration:underline; }
+.btn-add-prod { background:var(--verde); color:#fff; border:none; border-radius:10px; padding:12px 16px; font-size:14px; font-weight:600; font-family:'DM Sans',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; width:100%; justify-content:center; margin-top:16px; }
+.arvore-bloq { background:#FEF3C7; border-radius:8px; padding:8px 12px; margin-top:8px; font-size:12px; color:#92400E; }
+.arvore-bloq strong { display:block; margin-bottom:4px; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
 </style>
 </head>
 <body>
@@ -110,11 +139,17 @@ input[type="file"] { display:none; }
   <div id="detalheConteudo"></div>
 </div>
 
+<div class="view" id="viewStock">
+  <div id="stockConteudo"></div>
+</div>
+
 <div class="bnav">
   <button class="nbtn active" id="navD" onclick="voltarDashboard()"><span>🌳</span>Árvores</button>
+  <button class="nbtn" id="navS" onclick="mostrarStock()"><span>🧪</span>Stock</button>
   <button class="nbtn" id="navI" onclick="mostrarAjuda()"><span>ℹ️</span>Ajuda</button>
 </div>
 
+<!-- Modal novo registo -->
 <div class="overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-title">Novo Registo</div>
@@ -143,6 +178,34 @@ input[type="file"] { display:none; }
   </div>
 </div>
 
+<!-- Modal novo produto -->
+<div class="overlay" id="modalProdOverlay">
+  <div class="modal">
+    <div class="modal-title">Novo Produto</div>
+    <div class="fgrp"><label class="flabel">Nome</label><input type="text" class="finput" id="npNome" placeholder="Ex: Ferramol"></div>
+    <div class="fgrp">
+      <label class="flabel">Categoria</label>
+      <select class="fselect" id="npCat">
+        <option value="Fungicida">Fungicida</option>
+        <option value="Inseticida">Inseticida</option>
+        <option value="Nematoide">Nemátode</option>
+        <option value="Nutrição">Nutrição</option>
+        <option value="Acidificante">Acidificante</option>
+        <option value="Substrato">Substrato</option>
+        <option value="Barreira">Barreira física</option>
+        <option value="Outro">Outro</option>
+      </select>
+    </div>
+    <div class="fgrp"><label class="flabel">Quantidade / Unidade</label><input type="text" class="finput" id="npQtd" placeholder="Ex: 1L, 500g, 5 unid."></div>
+    <div class="fgrp"><label class="flabel">Link de compra (opcional)</label><input type="url" class="finput" id="npLink" placeholder="https://..."></div>
+    <div class="fgrp"><label class="flabel">Produtos que substitui nos tratamentos (opcional)</label><input type="text" class="finput" id="npKeys" placeholder="Ex: neem, bordalesa"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fecharModalProd()">Cancelar</button>
+      <button class="btn-save" onclick="guardarProduto()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lb" onclick="fecharLb()">
   <button class="lb-close">✕</button>
   <img id="lbImg" src="" alt="">
@@ -150,8 +213,7 @@ input[type="file"] { display:none; }
 
 <script>
 // ═══════════════════════════════════════════
-// DADOS — incorporados diretamente no HTML
-// (Claude actualiza esta secção quando necessário)
+// DADOS DAS ÁRVORES
 // ═══════════════════════════════════════════
 const ARVORES = [
   {id:1, nome:"Nectarina", emoji:"🍑", sciName:"Prunus persica var. nucipersica", vaso:"~30L laranja", ph:null, urgencia:"urgente"},
@@ -178,12 +240,34 @@ const REGISTOS_BASE = {
   6:[{id:"r6_1",data:"2026-06-20",diagnostico:"Estado geral bom. Folhas novas avermelhadas — normal em romãzeira (antocianinas). Substrato seco e arenoso. Clorose leve Fe/N.",tratamento:"Rega profunda imediata. Húmus líquido Siro + CANNA Mono Hierro 2ml/L. NPK 6-15-12 quinzenal.",urgencia:"baixo",fotos:[]}],
   7:[{id:"r7_1",data:"2026-06-20",diagnostico:"pH 6.5. Lesmas ativas confirmadas — buracos irregulares nas folhas. Figos em formação visíveis. Clorose Fe moderada. Manchas fúngicas incipientes.",tratamento:"URGENTE: Ferramol ao redor do vaso hoje. Fita de cobre no vaso. Neem foliar 5ml/L. CANNA Mono Hierro.",urgencia:"urgente",fotos:[]}],
   8:[{id:"r8_1",data:"2026-06-20",diagnostico:"pH 6.5 — CRÍTICO para castanheiro calcífugo (necessita 5.0-6.0). Mineiro foliar ativo (Phyllonorycter sp.) — galerias e exúvias visíveis. Clorose Fe severa por bloqueio de pH.",tratamento:"1º: Acidificação urgente — ácido cítrico 2g/L 3×/sem por 3 semanas. 2º: Drench neem 15ml/L + sabão 2-3ml/L, 500-750ml, 7em7 dias × 3. 3º: Ferroflower só após pH < 6.2. Repotagem 50-60L no outono.",urgencia:"urgente",fotos:[]}],
-  9:[{id:"r9_1",data:"2026-06-20",diagnostico:"pH 7.0 — CRÍTICO (pior valor do conjunto). Cancro/necrose basal no caule — inspecionar urgentemente extensão. Crivado fúngico ativo. Clorose Fe severa.",tratamento:"EMERGÊNCIA: Inspeção física da base do caule hoje. Acidificação ácido cítrico 2g/L 3×/sem. Calda bordalesa foliar. Ferroflower só após pH ≤ 6.5. NÃO fertilizar até pH corrigido.",urgencia:"critico",fotos:[]}],
+  9:[{id:"r9_1",data:"2026-06-20",diagnostico:"pH 7.0 — CRÍTICO (pior valor do conjunto). Cancro/necrose basal no caule — inspecionar urgentemente extensão. Crivado fúngico ativo. Clorose Fe severa. Caule morto suspeito à base.",tratamento:"EMERGÊNCIA: Inspeção física da base do caule hoje. Acidificação ácido cítrico 2g/L 3×/sem. Calda bordalesa foliar. Ferroflower só após pH ≤ 6.5. NÃO fertilizar até pH corrigido.",urgencia:"critico",fotos:[]}],
   10:[{id:"r10_1",data:"2026-06-20",diagnostico:"pH 6.5. Pulgões Myzus cerasi confirmados — pontos amarelos nos pecíolos e rebentos enrolados. Cola entomológica necessária para bloquear formigas. Crivado incipiente.",tratamento:"URGENTE: Remoção manual dos ápices enrolados. Cola entomológica no caule (sobre cardboard). Neem 5ml/L + sabão potássico foliar. Calda bordalesa após ciclo neem.",urgencia:"urgente",fotos:[]}],
   11:[{id:"r11_1",data:"2026-06-20",diagnostico:"Pereira Duo — pH 6.5. Ramo A: folhas ovais largas (tipo Rocha/Williams). Ramo B: folhas estreitas (tipo Conference). Mancha necrótica grande a vigiar. Clorose Fe leve.",tratamento:"Vigiar mancha — calda bordalesa se se multiplicar. CANNA Mono Hierro 2ml/L. Ferramol.",urgencia:"medio",fotos:[]}],
   12:[{id:"r12_1",data:"2026-06-20",diagnostico:"Macieira Duo — pH 6.5. Mineiro foliar ativo (galeria visível). Possível oídio — verificar rebentos brancos (teste do dedo). Pontos amarelos — suspeita ácaro inicial.",tratamento:"Drench neem 15ml/L sistémico para mineiro. Bicarbonato 5g/L se oídio confirmado. Neem foliar face inferior.",urgencia:"urgente",fotos:[]}],
   13:[{id:"r13_1",data:"2026-06-20",diagnostico:"Ameixeira Duo — pH 6.5. Gorgulho adulto confirmado visualmente. Buracos geométricos perfeitos nas folhas (assinatura de gorgulho). Larvas no substrato suspeitas. Mancha necrótica escura. Substrato seco.",tratamento:"URGENTE: Inspeção nocturna com lanterna. Steinernema kraussei (nematodes) em rega. Rega profunda imediata. Calda bordalesa foliar.",urgencia:"urgente",fotos:[]}],
 };
+
+// ═══════════════════════════════════════════
+// INVENTÁRIO BASE DE PRODUTOS
+// keys: palavras-chave que aparecem nos campos "tratamento" — usado para detetar bloqueios
+// ═══════════════════════════════════════════
+const PRODUTOS_BASE = [
+  {id:"p01", nome:"Fertibono Neem Oil", cat:"Inseticida", qtd:"1L", disponivel:true, link:"https://www.amazon.es/dp/B07QJV1YP3", keys:["neem"]},
+  {id:"p02", nome:"Sabão Potássico", cat:"Inseticida", qtd:"disponível", disponivel:true, link:"", keys:["sabão potássico","sabao potassico"]},
+  {id:"p03", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"disponível", disponivel:true, link:"", keys:["bordalesa","calda bordalesa"]},
+  {id:"p04", nome:"CANNA Mono Hierro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00JH3NZQE", keys:["canna mono hierro","mono hierro"]},
+  {id:"p05", nome:"Flower Ferroflower", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B08C3NJTH3", keys:["ferroflower"]},
+  {id:"p06", nome:"Plagron Supermix", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B07D3GFV4W", keys:["supermix","plagron supermix"]},
+  {id:"p07", nome:"NPK 6-15-12", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", keys:["npk 6-15-12","npk"]},
+  {id:"p08", nome:"Ferramol", cat:"Barreira", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00AOM5EDQ", keys:["ferramol"]},
+  {id:"p09", nome:"Fita de Cobre", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", keys:["fita de cobre","copper"]},
+  {id:"p10", nome:"Cola Entomológica", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", keys:["cola entomológica","cola entomologica"]},
+  {id:"p11", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"disponível", disponivel:true, link:"", keys:["ácido cítrico","acido citrico"]},
+  {id:"p12", nome:"Ácido Bórico (Dimor 500g)", cat:"Inseticida", qtd:"500g", disponivel:true, link:"https://www.farmaciass.pt", keys:["bórico","borico","dimor"]},
+  {id:"p13", nome:"Húmus Líquido Siro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", keys:["húmus líquido","humus liquido","siro"]},
+  {id:"p14", nome:"Steinernema kraussei (nematodes)", cat:"Nematoide", qtd:"⚠️ Por encomendar", disponivel:false, link:"https://www.amazon.es/s?k=steinernema+kraussei", keys:["steinernema","nematodes","nematode"]},
+  {id:"p15", nome:"Bicarbonato de Sódio", cat:"Fungicida", qtd:"Por confirmar", disponivel:false, link:"", keys:["bicarbonato"]},
+];
 
 const REPO = 'nnuxx/Fornos-ArvoresFruto';
 const PASTA_MAP = {
@@ -205,12 +289,42 @@ let fotosLocais = [];
 let modalId = null;
 let filtroAtivo = 'todos';
 
-// Merge registos base com locais guardados pelo utilizador
+// ── PRODUTOS — helpers ────────────────────
+function getProdutos() {
+  const local = JSON.parse(localStorage.getItem('jardim_produtos') || 'null');
+  if (local) return local;
+  return JSON.parse(JSON.stringify(PRODUTOS_BASE)); // cópia fresca
+}
+
+function saveProdutos(prods) {
+  localStorage.setItem('jardim_produtos', JSON.stringify(prods));
+}
+
+function toggleDisponivel(pid) {
+  const prods = getProdutos();
+  const p = prods.find(x => x.id === pid);
+  if (p) { p.disponivel = !p.disponivel; saveProdutos(prods); }
+  renderStock();
+}
+
+function produtosEmFalta() {
+  return getProdutos().filter(p => !p.disponivel);
+}
+
+// Dada uma string de tratamento, devolve IDs de produtos em falta que bloqueiam
+function produtosBloqueadores(tratTxt) {
+  if (!tratTxt) return [];
+  const t = tratTxt.toLowerCase();
+  return getProdutos()
+    .filter(p => !p.disponivel && p.keys && p.keys.some(k => t.includes(k.toLowerCase())))
+    .map(p => p.id);
+}
+
+// ── DADOS GERAIS ─────────────────────────
 function getRegistos(id) {
   const base = (REGISTOS_BASE[id] || []).map(r => ({...r}));
   const local = JSON.parse(localStorage.getItem('jardim_local') || '{}');
   const locais = local[id] || [];
-  // Adicionar apenas os que não existem na base
   locais.forEach(lr => { if (!base.find(r => r.id === lr.id)) base.push(lr); });
   return base.sort((a,b) => a.data > b.data ? 1 : -1);
 }
@@ -238,10 +352,13 @@ function renderDashboard() {
     const [bc, bl] = BADGE[urg] || BADGE.baixo;
     const ph = a.ph ? `pH ${a.ph} · ` : '';
     const sub = ult ? `Último: ${fmtData(ult.data)}` : 'Sem registos';
+    // badge de bloqueio se algum tratamento pendente tem produto em falta
+    const bloq = regs.some(r => produtosBloqueadores(r.tratamento).length > 0);
+    const bloqTag = bloq ? `<span style="font-size:16px" title="Produto em falta">⚠️</span>` : '';
     return `<div class="arvore-card ${urg}" onclick="abrirArvore(${a.id})">
       <div class="arvore-emoji">${a.emoji}</div>
       <div class="arvore-info">
-        <div class="arvore-nome">${a.nome}</div>
+        <div class="arvore-nome">${a.nome} ${bloqTag}</div>
         <div class="arvore-sub">${ph}${sub}</div>
       </div>
       <span class="${bc}">${bl}</span>
@@ -253,32 +370,32 @@ function renderDashboard() {
 function abrirArvore(id) {
   arvoreAtiva = id;
   const a = ARVORES.find(x => x.id === id);
-  document.getElementById('viewDashboard').classList.remove('active');
-  document.getElementById('viewDetalhe').classList.add('active');
-  document.getElementById('backBtn').style.display = 'block';
-  document.getElementById('headerTitle').textContent = a.nome;
+  setView('viewDetalhe', a.nome);
   document.getElementById('navD').classList.remove('active');
   renderDetalhe(id);
 }
 
 function voltarDashboard() {
   arvoreAtiva = null;
-  document.getElementById('viewDashboard').classList.add('active');
-  document.getElementById('viewDetalhe').classList.remove('active');
-  document.getElementById('backBtn').style.display = 'none';
-  document.getElementById('headerTitle').textContent = '🌿 Jardim Frutícola';
+  setView('viewDashboard', '🌿 Jardim Frutícola', false);
   document.getElementById('navD').classList.add('active');
+  document.getElementById('navS').classList.remove('active');
   document.getElementById('navI').classList.remove('active');
   renderDashboard();
 }
 
+function setView(viewId, title, showBack=true) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  document.getElementById('backBtn').style.display = showBack ? 'block' : 'none';
+  document.getElementById('headerTitle').textContent = title;
+}
+
 async function renderDetalhe(id) {
   const a = ARVORES.find(x => x.id === id);
-  const urg = getUrgencia(id);
   const regs = getRegistos(id).slice().reverse();
   const ph = a.ph ? `<span class="chip">pH ${a.ph}</span>` : '';
 
-  // Buscar fotos do GitHub via API (sem CORS issues pois é API pública)
   let fotosGH = [];
   try {
     const pasta = PASTA_MAP[id];
@@ -305,9 +422,17 @@ async function renderDetalhe(id) {
     : regs.map((r,i) => {
         const [bc] = BADGE[r.urgencia] || BADGE.baixo;
         const fotos = (r.fotos||[]).filter(f=>f&&f.length>10);
+        // Produtos bloqueadores deste registo
+        const bloqIds = produtosBloqueadores(r.tratamento);
+        const bloqProds = bloqIds.length > 0
+          ? getProdutos().filter(p => bloqIds.includes(p.id))
+          : [];
+        const bloqHTML = bloqProds.length > 0
+          ? `<div class="arvore-bloq"><strong>⚠️ Produto em falta para este tratamento:</strong>${bloqProds.map(p=>`<span style="display:block;margin-top:2px">• ${p.nome}${p.link?` — <a href="${p.link}" target="_blank" style="color:var(--terra);font-weight:600">Encomendar</a>`:''}</span>`).join('')}</div>`
+          : '';
         return `<div class="reg-card">
           <div class="reg-head ${i===0?'open':''}" onclick="toggleReg(this)">
-            <div>
+            <div style="flex:1;min-width:0">
               <div class="reg-data">${fmtData(r.data)}</div>
               <div class="reg-titulo">${r.diagnostico}</div>
             </div>
@@ -317,6 +442,7 @@ async function renderDetalhe(id) {
             ${fotos.length>0?`<div class="fotos-row">${fotos.map(f=>`<img class="foto-thumb" src="${f}" onclick="abrirLb('${f}')" loading="lazy">`).join('')}</div>`:''}
             <div class="reg-sec"><div class="reg-sec-label">Diagnóstico</div><div class="reg-sec-text">${r.diagnostico}</div></div>
             <div class="reg-sec"><div class="reg-sec-label">Tratamento</div><div class="reg-sec-text">${r.tratamento||'—'}</div></div>
+            ${bloqHTML}
             <span class="${bc}" style="font-size:12px;padding:3px 10px;border-radius:10px;display:inline-block;margin-top:4px">${BADGE[r.urgencia]?.[1]||''}</span>
           </div>
         </div>`;
@@ -345,7 +471,7 @@ function toggleReg(head) {
   chev.classList.toggle('open');
 }
 
-// ── MODAL ────────────────────────────────
+// ── MODAL REGISTO ────────────────────────
 function abrirModal(id) {
   modalId = id;
   fotosLocais = [];
@@ -383,54 +509,143 @@ function guardarRegisto() {
     diagnostico: diag,
     tratamento: document.getElementById('novoTrat').value.trim(),
     urgencia: document.getElementById('novaUrg').value,
-    fotos: [] // fotos via GitHub, não em base64
+    fotos: []
   };
-  // Guardar localmente
   const local = JSON.parse(localStorage.getItem('jardim_local')||'{}');
   if (!local[modalId]) local[modalId] = [];
   local[modalId].push(novo);
   localStorage.setItem('jardim_local', JSON.stringify(local));
-  // Guardar urgência
   localStorage.setItem('jardim_urg_'+modalId, novo.urgencia);
   fecharModal();
   renderDetalhe(modalId);
 }
 
-// ── AJUDA ────────────────────────────────
+// ── STOCK ─────────────────────────────────
+function mostrarStock() {
+  setView('viewStock', '🧪 Stock');
+  document.getElementById('navS').classList.add('active');
+  document.getElementById('navD').classList.remove('active');
+  document.getElementById('navI').classList.remove('active');
+  renderStock();
+}
+
+function renderStock() {
+  const prods = getProdutos();
+  const total = prods.length;
+  const disponiveis = prods.filter(p => p.disponivel).length;
+  const emFalta = total - disponiveis;
+
+  // Alertas: produtos em falta que bloqueiam tratamentos activos
+  const alertas = [];
+  ARVORES.forEach(a => {
+    const regs = getRegistos(a.id);
+    regs.forEach(r => {
+      const bloq = produtosBloqueadores(r.tratamento);
+      bloq.forEach(pid => {
+        const prod = prods.find(p => p.id === pid);
+        if (prod && !alertas.find(x => x.pid === pid)) {
+          alertas.push({pid, prodNome: prod.nome, arvore: a.nome, link: prod.link});
+        }
+      });
+    });
+  });
+
+  const alertasHTML = alertas.length > 0 ? `
+    <div class="alerta-box">
+      <div class="alerta-box-title">⚠️ Tratamentos bloqueados por falta de produto</div>
+      ${alertas.map(al => `<div class="alerta-item">🚫 <span><strong>${al.prodNome}</strong> — necessário em ${al.arvore}${al.link?` · <a href="${al.link}" target="_blank" style="color:var(--vermelho);font-weight:600">Encomendar</a>`:''}</span></div>`).join('')}
+    </div>` : '';
+
+  // Agrupar por categoria
+  const cats = [...new Set(prods.map(p => p.cat))];
+  const catsHTML = cats.map(cat => {
+    const catProds = prods.filter(p => p.cat === cat);
+    return `<div class="cat-label">${cat}</div>` + catProds.map(p => `
+      <div class="prod-card ${p.disponivel?'':'esgotado'}">
+        <div class="prod-info">
+          <div class="prod-nome">${p.nome}</div>
+          <div class="prod-det">${p.qtd}${p.link?` · <a class="link-compra" href="${p.link}" target="_blank">🛒 Encomendar</a>`:''}</div>
+        </div>
+        <div class="prod-acoes">
+          <button class="toggle-stock ${p.disponivel?'on':'off'}" onclick="toggleDisponivel('${p.id}')" title="${p.disponivel?'Marcar como esgotado':'Marcar como disponível'}"></button>
+          <span style="font-size:10px;color:var(--cinza)">${p.disponivel?'Em stock':'Esgotado'}</span>
+        </div>
+      </div>`).join('');
+  }).join('');
+
+  document.getElementById('stockConteudo').innerHTML = `
+    <div class="stock-resumo">
+      <div class="stock-stat"><div class="stock-stat-num ok">${disponiveis}</div><div class="stock-stat-label">Em stock</div></div>
+      <div class="stock-stat"><div class="stock-stat-num ${emFalta>0?'alert':'ok'}">${emFalta}</div><div class="stock-stat-label">Em falta</div></div>
+    </div>
+    ${alertasHTML}
+    ${catsHTML}
+    <button class="btn-add-prod" onclick="abrirModalProd()">+ Adicionar produto</button>`;
+}
+
+// ── MODAL PRODUTO ─────────────────────────
+function abrirModalProd() {
+  document.getElementById('npNome').value = '';
+  document.getElementById('npQtd').value = '';
+  document.getElementById('npLink').value = '';
+  document.getElementById('npKeys').value = '';
+  document.getElementById('modalProdOverlay').classList.add('open');
+}
+
+function fecharModalProd() { document.getElementById('modalProdOverlay').classList.remove('open'); }
+
+function guardarProduto() {
+  const nome = document.getElementById('npNome').value.trim();
+  if (!nome) { alert('Nome obrigatório.'); return; }
+  const prods = getProdutos();
+  const novo = {
+    id: 'pu_' + Date.now(),
+    nome,
+    cat: document.getElementById('npCat').value,
+    qtd: document.getElementById('npQtd').value.trim() || 'disponível',
+    disponivel: true,
+    link: document.getElementById('npLink').value.trim(),
+    keys: document.getElementById('npKeys').value.split(',').map(k => k.trim().toLowerCase()).filter(Boolean)
+  };
+  prods.push(novo);
+  saveProdutos(prods);
+  fecharModalProd();
+  renderStock();
+}
+
+// ── AJUDA ─────────────────────────────────
 function mostrarAjuda() {
+  setView('viewDetalhe', 'Como usar');
   document.getElementById('navI').classList.add('active');
   document.getElementById('navD').classList.remove('active');
-  document.getElementById('viewDashboard').classList.remove('active');
-  document.getElementById('viewDetalhe').classList.remove('active');
-  // Reutiliza viewDetalhe para ajuda
-  document.getElementById('viewDetalhe').classList.add('active');
-  document.getElementById('backBtn').style.display = 'block';
-  document.getElementById('headerTitle').textContent = 'Como usar';
+  document.getElementById('navS').classList.remove('active');
   document.getElementById('detalheConteudo').innerHTML = `
     <div style="background:#fff;border-radius:12px;padding:20px;margin-top:0">
       <div style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:16px">Guia rápido</div>
       <div style="font-size:14px;line-height:1.8;color:#374151">
         <strong>📋 Novo registo de diagnóstico</strong><br>
         Abre a árvore → toca em "Novo Registo" → preenche → Guardar.<br><br>
-        <strong>📷 Adicionar fotos novas</strong><br>
+        <strong>🧪 Gestão de stock</strong><br>
+        Tab Stock → toggle para marcar esgotado/disponível.<br>
+        Quando um produto está esgotado, a app assinala ⚠️ nas árvores com tratamento bloqueado.<br><br>
+        <strong>📷 Adicionar fotos</strong><br>
         Usa a app <strong>GitHub Mobile</strong>:<br>
         1. Repositório <em>Fornos-ArvoresFruto</em><br>
         2. Pasta <em>fotos / NN-nome-arvore</em><br>
-        3. Upload das fotos<br>
-        As fotos aparecem automaticamente na app.<br><br>
+        3. Upload das fotos<br><br>
         <strong>🔄 Actualizar diagnósticos</strong><br>
-        Envia fotos ao Claude e pede diagnóstico. O Claude actualiza o código da app com os novos dados.<br><br>
+        Envia fotos ao Claude e pede diagnóstico. O Claude actualiza a app.<br><br>
         <strong>💾 Os teus registos</strong><br>
-        Ficam guardados neste telemóvel. O Claude guarda os diagnósticos oficiais na app.
+        Stock e registos ficam guardados neste telemóvel.
       </div>
     </div>`;
 }
 
-// ── LIGHTBOX ─────────────────────────────
+// ── LIGHTBOX ──────────────────────────────
 function abrirLb(src) { document.getElementById('lbImg').src=src; document.getElementById('lb').classList.add('open'); }
 function fecharLb()    { document.getElementById('lb').classList.remove('open'); }
 
-// ── UTILS ────────────────────────────────
+// ── UTILS ─────────────────────────────────
 function fmtData(s) { if(!s)return''; const[y,m,d]=s.split('-'); return`${d}/${m}/${y}`; }
 
 // INIT
@@ -439,5 +654,3 @@ renderDashboard();
 </script>
 </body>
 </html>
-
-
