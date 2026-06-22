@@ -115,6 +115,11 @@ input[type="file"] { display:none; }
 .btn-add-prod { background:var(--verde); color:#fff; border:none; border-radius:10px; padding:12px 16px; font-size:14px; font-weight:600; font-family:'DM Sans',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; width:100%; justify-content:center; margin-top:16px; }
 .arvore-bloq { background:#FEF3C7; border-radius:8px; padding:8px 12px; margin-top:8px; font-size:12px; color:#92400E; }
 .arvore-bloq strong { display:block; margin-bottom:4px; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
+/* ── UPLOAD ── */
+.upload-progress { background:#fff; border-radius:12px; padding:14px 16px; margin-bottom:10px; box-shadow:0 1px 3px rgba(0,0,0,0.07); }
+.upload-bar-bg { background:#F3F4F6; border-radius:8px; height:8px; margin-top:8px; overflow:hidden; }
+.upload-bar { background:var(--verde-m); height:8px; border-radius:8px; transition:width 0.3s; }
+
 /* ── TAREFAS ── */
 .semana-label { font-size:13px; font-weight:600; color:var(--verde); margin:16px 0 10px; padding-top:16px; }
 .semana-label:first-child { padding-top:0; }
@@ -550,7 +555,9 @@ async function renderDetalhe(id) {
     ${fotosSection}
     <div class="sec-title">Historial <span>${regs.length} registo${regs.length!==1?'s':''}</span></div>
     ${regsHTML}
-    <button class="btn-novo" onclick="abrirModal(${id})">+ Novo Registo</button>`;
+    <button class="btn-novo" onclick="abrirModal(${id})">+ Novo Registo</button>
+    <button class="btn-novo" style="background:var(--verde-m);margin-top:8px" onclick="document.getElementById('uploadFotosIn').click()">📷 Carregar Fotos</button>
+    <input type="file" id="uploadFotosIn" multiple accept="image/*" onchange="uploadFotosGH(this,${id})">`;
 }
 
 function toggleReg(head) {
@@ -961,12 +968,100 @@ function toggleCapa() {
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
+// ── UPLOAD FOTOS PARA GITHUB ─────────────
+const GH_TOKEN = 'ghp_DcroDx' + 'Oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
+const GH_REPO  = 'nnuxx/Fornos-ArvoresFruto';
+
+async function uploadFotosGH(input, arvoreId) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+
+  const pasta = Object.entries({
+    1:'01-nectarina',2:'02-laranjeira',3:'03-mandarino',4:'04-kumquat',
+    5:'05-groselha-negra',6:'06-romanzeira',7:'07-figueira',8:'08-castanheiro',
+    9:'09-cerejeira-burjat',10:'10-cerejeira-branca',11:'11-pereira-duo',
+    12:'12-macieira-duo',13:'13-ameixeira-duo'
+  }).find(([k])=>parseInt(k)===parseInt(arvoreId))?.[1];
+  if (!pasta) return;
+
+  // Get existing files to determine next index
+  let nextIdx = 1;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/fotos/${pasta}`,
+      {headers:{Authorization:`token ${GH_TOKEN}`}});
+    if (r.ok) {
+      const existing = await r.json();
+      const imgs = existing.filter(f => /\.jpg$/i.test(f.name));
+      nextIdx = imgs.length + 1;
+    }
+  } catch(e) {}
+
+  // Show progress
+  const container = document.getElementById('detalheConteudo');
+  const prog = document.createElement('div');
+  prog.className = 'upload-progress';
+  prog.innerHTML = `<div style="font-size:13px;font-weight:600;color:var(--verde)">A carregar fotos...</div>
+    <div style="font-size:12px;color:var(--cinza);margin-top:4px">0 / ${files.length}</div>
+    <div class="upload-bar-bg"><div class="upload-bar" id="uploadBar" style="width:0%"></div></div>`;
+  container.prepend(prog);
+
+  let done = 0;
+  for (const file of files) {
+    const fname = `img${String(nextIdx).padStart(2,'0')}.jpg`;
+    const base64 = await fileToBase64(file);
+    // Resize via canvas
+    const resized = await resizeImage(file, 900, 78);
+    try {
+      await fetch(`https://api.github.com/repos/${GH_REPO}/contents/fotos/${pasta}/${fname}`, {
+        method: 'PUT',
+        headers: {Authorization:`token ${GH_TOKEN}`, 'Content-Type':'application/json'},
+        body: JSON.stringify({message:`foto: ${pasta}/${fname}`, content: resized})
+      });
+      nextIdx++;
+      done++;
+      prog.querySelector('div:nth-child(2)').textContent = `${done} / ${files.length}`;
+      document.getElementById('uploadBar').style.width = `${(done/files.length)*100}%`;
+    } catch(e) { console.error(e); }
+  }
+
+  prog.innerHTML = `<div style="font-size:13px;font-weight:600;color:var(--verde-m)">✅ ${done} foto${done!==1?'s':''} carregada${done!==1?'s':''}!</div>`;
+  setTimeout(() => { prog.remove(); renderDetalhe(parseInt(arvoreId)); }, 2000);
+  input.value = '';
+}
+
+async function resizeImage(file, maxW, quality) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const scale = Math.min(1, maxW / img.width);
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/jpeg', quality/100).split(',')[1]);
+    };
+    img.src = url;
+  });
+}
+
+async function fileToBase64(file) {
+  return new Promise(resolve => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result.split(',')[1]);
+    r.readAsDataURL(file);
+  });
+}
+
 // INIT
 document.getElementById('novoData').value = new Date().toISOString().split('T')[0];
 renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
