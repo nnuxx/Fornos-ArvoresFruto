@@ -241,6 +241,30 @@ input[type="file"] { display:none; }
   </div>
 </div>
 
+<!-- Modal editar registo -->
+<div class="overlay" id="modalEditOverlay">
+  <div class="modal">
+    <div class="modal-title">Editar Registo</div>
+    <div class="fgrp"><label class="flabel">Data</label><input type="date" class="finput" id="editData"></div>
+    <div class="fgrp"><label class="flabel">pH medido</label><input type="text" class="finput" id="editPH" placeholder="Ex: 6.0"></div>
+    <div class="fgrp"><label class="flabel">Diagnóstico</label><textarea class="ftarea" id="editDiag" style="min-height:100px"></textarea></div>
+    <div class="fgrp"><label class="flabel">Tratamento</label><textarea class="ftarea" id="editTrat" style="min-height:80px"></textarea></div>
+    <div class="fgrp">
+      <label class="flabel">Urgência</label>
+      <select class="fselect" id="editUrg">
+        <option value="baixo">🟢 OK / Baixa</option>
+        <option value="medio">🟡 Média</option>
+        <option value="urgente">🔴 Urgente</option>
+        <option value="critico">🚨 Crítico</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fecharModalEdit()">Cancelar</button>
+      <button class="btn-save" onclick="guardarEdit()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lb" onclick="fecharLb()">
   <button class="lb-close">✕</button>
   <img id="lbImg" src="" alt="">
@@ -375,10 +399,16 @@ function produtosBloqueadores(tratTxt) {
 
 // ── DADOS GERAIS ─────────────────────────
 function getRegistos(id) {
-  const base = (REGISTOS_BASE[id] || []).map(r => ({...r}));
   const local = JSON.parse(localStorage.getItem('jardim_local') || '{}');
   const locais = local[id] || [];
-  locais.forEach(lr => { if (!base.find(r => r.id === lr.id)) base.push(lr); });
+  const deletedIds = new Set(locais.filter(r => r._deleted).map(r => r.id));
+  const overrides = {};
+  locais.filter(r => r._override).forEach(r => overrides[r.id] = r);
+  let base = (REGISTOS_BASE[id] || [])
+    .filter(r => !deletedIds.has(r.id))
+    .map(r => overrides[r.id] ? {...overrides[r.id]} : {...r});
+  locais.filter(r => !r._deleted && !r._override && !base.find(b => b.id === r.id))
+    .forEach(lr => base.push(lr));
   return base.sort((a,b) => a.data > b.data ? 1 : -1);
 }
 
@@ -497,7 +527,13 @@ async function renderDetalhe(id) {
             <div class="reg-sec"><div class="reg-sec-label">Diagnóstico</div><div class="reg-sec-text">${r.diagnostico}</div></div>
             <div class="reg-sec"><div class="reg-sec-label">Tratamento</div><div class="reg-sec-text">${r.tratamento||'—'}</div></div>
             ${bloqHTML}
-            <span class="${bc}" style="font-size:12px;padding:3px 10px;border-radius:10px;display:inline-block;margin-top:4px">${BADGE[r.urgencia]?.[1]||''}</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+              <span class="${bc}" style="font-size:12px;padding:3px 10px;border-radius:10px;display:inline-block">${BADGE[r.urgencia]?.[1]||''}</span>
+              <div style="display:flex;gap:8px">
+                <button onclick="editarRegisto('${a.id}','${r.id}')" style="background:#F3F4F6;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--cinza)">✏️ Editar</button>
+                <button onclick="eliminarRegisto('${a.id}','${r.id}')" style="background:#FEE2E2;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--vermelho)">🗑️</button>
+              </div>
+            </div>
           </div>
         </div>`;
       }).join('');
@@ -732,6 +768,84 @@ function mostrarAjuda() {
 }
 
 // ── LIGHTBOX ──────────────────────────────
+// ── EDITAR / ELIMINAR REGISTOS ───────────
+let editArvoreId = null;
+let editRegistoId = null;
+
+function editarRegisto(arvoreId, rid) {
+  const regs = getRegistos(parseInt(arvoreId));
+  const r = regs.find(x => x.id === rid);
+  if (!r) return;
+  editArvoreId = parseInt(arvoreId);
+  editRegistoId = rid;
+  document.getElementById('editData').value = r.data || '';
+  // Extract pH from diagnostico if present
+  const phMatch = r.diagnostico.match(/pH medido[:\s]*([\d.,\-–]+)/i);
+  document.getElementById('editPH').value = phMatch ? phMatch[1] : '';
+  document.getElementById('editDiag').value = r.diagnostico || '';
+  document.getElementById('editTrat').value = r.tratamento || '';
+  document.getElementById('editUrg').value = r.urgencia || 'medio';
+  document.getElementById('modalEditOverlay').classList.add('open');
+}
+
+function fecharModalEdit() {
+  document.getElementById('modalEditOverlay').classList.remove('open');
+  editArvoreId = null;
+  editRegistoId = null;
+}
+
+function guardarEdit() {
+  if (!editArvoreId || !editRegistoId) return;
+  const local = JSON.parse(localStorage.getItem('jardim_local') || '{}');
+  if (!local[editArvoreId]) local[editArvoreId] = [];
+
+  const ph = document.getElementById('editPH').value.trim();
+  const diagRaw = document.getElementById('editDiag').value.trim();
+  // If pH field filled and not already in diag, prepend it
+  let diagFinal = diagRaw;
+  if (ph && !diagRaw.startsWith('pH medido')) diagFinal = 'pH medido: ' + ph + '. ' + diagRaw;
+  else if (ph) diagFinal = diagRaw;
+
+  const updated = {
+    id: editRegistoId,
+    data: document.getElementById('editData').value,
+    diagnostico: diagFinal,
+    tratamento: document.getElementById('editTrat').value.trim(),
+    urgencia: document.getElementById('editUrg').value,
+    fotos: []
+  };
+
+  // Check if it's a local record
+  const localIdx = local[editArvoreId].findIndex(r => r.id === editRegistoId);
+  if (localIdx !== -1) {
+    local[editArvoreId][localIdx] = updated;
+  } else {
+    // Base record — store override in local
+    local[editArvoreId].push({...updated, _override: true});
+  }
+  localStorage.setItem('jardim_local', JSON.stringify(local));
+  localStorage.setItem('jardim_urg_' + editArvoreId, updated.urgencia);
+  fecharModalEdit();
+  renderDetalhe(editArvoreId);
+}
+
+function eliminarRegisto(arvoreId, rid) {
+  if (!confirm('Eliminar este registo?')) return;
+  const id = parseInt(arvoreId);
+  const local = JSON.parse(localStorage.getItem('jardim_local') || '{}');
+  if (!local[id]) local[id] = [];
+  // Mark as deleted
+  const existing = local[id].findIndex(r => r.id === rid);
+  if (existing !== -1) {
+    local[id].splice(existing, 1);
+  } else {
+    // Base record — mark as deleted
+    local[id].push({id: rid, _deleted: true});
+  }
+  localStorage.setItem('jardim_local', JSON.stringify(local));
+  renderDetalhe(id);
+}
+
 function abrirLb(src) { document.getElementById('lbImg').src=src; document.getElementById('lb').classList.add('open'); }
 function fecharLb()    { document.getElementById('lb').classList.remove('open'); }
 
@@ -853,6 +967,7 @@ renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
