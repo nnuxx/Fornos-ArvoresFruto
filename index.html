@@ -222,6 +222,14 @@ input[type="file"] { display:none; }
       </select>
     </div>
     <div class="fgrp"><label class="flabel">Quantidade / Unidade</label><input type="text" class="finput" id="npQtd" placeholder="Ex: 1L, 500g, 5 unid."></div>
+    <div class="fgrp">
+      <label class="flabel">Estado</label>
+      <select class="fselect" id="npEstado">
+        <option value="disponivel">✅ Disponível</option>
+        <option value="transito">🚚 Em trânsito</option>
+        <option value="por_comprar">⚠️ Por comprar</option>
+      </select>
+    </div>
     <div class="fgrp"><label class="flabel">Link de compra (opcional)</label><input type="url" class="finput" id="npLink" placeholder="https://..."></div>
     <div class="fgrp"><label class="flabel">URL da foto do produto (opcional)</label><input type="url" class="finput" id="npFoto" placeholder="https://... (link directo para imagem)"></div>
     <div class="fgrp"><label class="flabel">Produtos que substitui nos tratamentos (opcional)</label><input type="text" class="finput" id="npKeys" placeholder="Ex: neem, bordalesa"></div>
@@ -278,24 +286,24 @@ const REGISTOS_BASE = {
 // keys: palavras-chave que aparecem nos campos "tratamento" — usado para detetar bloqueios
 // ═══════════════════════════════════════════
 const PRODUTOS_BASE = [
-  {id:"p01", nome:"Fertibono Neem Oil", cat:"Inseticida", qtd:"1L", disponivel:true, link:"https://www.amazon.es/dp/B07QJV1YP3", foto:"", keys:["neem"]},
-  {id:"p02", nome:"Sabão Potássico", cat:"Inseticida", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["sabão potássico","sabao potassico"]},
-  {id:"p03", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"⚠️ Por encomendar", disponivel:false, link:"", foto:"", keys:["bordalesa","calda bordalesa"]},
-  {id:"p04", nome:"CANNA Mono Hierro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00JH3NZQE", foto:"", keys:["canna mono hierro","mono hierro"]},
-  {id:"p05", nome:"Flower Ferroflower", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B08C3NJTH3", foto:"", keys:["ferroflower"]},
-  {id:"p06", nome:"Plagron Supermix", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B07D3GFV4W", foto:"", keys:["supermix","plagron supermix"]},
-  {id:"p07", nome:"NPK 6-15-12", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["npk 6-15-12","npk"]},
-  {id:"p08", nome:"Ferramol", cat:"Barreira", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00AOM5EDQ", foto:"", keys:["ferramol"]},
-  {id:"p09", nome:"Fita de Cobre", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["fita de cobre","copper"]},
-  {id:"p10", nome:"Cola Entomológica", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["cola entomológica","cola entomologica"]},
-  {id:"p11", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"⚠️ Por comprar", disponivel:false, link:"", foto:"", keys:["ácido cítrico","acido citrico"]},
-  {id:"p18", nome:"Ácido Nítrico", cat:"Acidificante", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["ácido nítrico","acido nitrico","nitrico"]},
-  {id:"p12", nome:"Ácido Bórico (Dimor 500g)", cat:"Inseticida", qtd:"500g", disponivel:true, link:"https://www.farmaciass.pt", foto:"", keys:["bórico","borico","dimor"]},
-  {id:"p13", nome:"Húmus Líquido Siro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["húmus líquido","humus liquido","siro"]},
-  {id:"p14", nome:"Steinernema kraussei (nematodes)", cat:"Nematoide", qtd:"⚠️ Por encomendar", disponivel:false, link:"https://www.amazon.es/s?k=steinernema+kraussei", foto:"", keys:["steinernema","nematodes","nematode"]},
-  {id:"p15", nome:"Bicarbonato de Sódio", cat:"Fungicida", qtd:"Por confirmar", disponivel:false, link:"", foto:"", keys:["bicarbonato"]},
-  {id:"p16", nome:"Neudorff Azet Fertilizante Cítricos", cat:"Nutrição", qtd:"⚠️ Esgotado", disponivel:false, link:"", foto:"", keys:["neudorff","azet"]},
-  {id:"p17", nome:"KB Fertilizante Citrinos & Mediterrâneas", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", keys:["kb fertilizante","guano marinho"]},
+  {id:"p01", nome:"Fertibono Neem Oil", cat:"Inseticida", qtd:"1L", disponivel:true, link:"https://www.amazon.es/dp/B07QJV1YP3", foto:"", estado:"disponivel", keys:["neem"]},
+  {id:"p02", nome:"Sabão Potássico", cat:"Inseticida", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["sabão potássico","sabao potassico"]},
+  {id:"p03", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"⚠️ Por encomendar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bordalesa","calda bordalesa"]},
+  {id:"p04", nome:"CANNA Mono Hierro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00JH3NZQE", foto:"", estado:"disponivel", keys:["canna mono hierro","mono hierro"]},
+  {id:"p05", nome:"Flower Ferroflower", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B08C3NJTH3", foto:"", estado:"disponivel", keys:["ferroflower"]},
+  {id:"p06", nome:"Plagron Supermix", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B07D3GFV4W", foto:"", estado:"disponivel", keys:["supermix","plagron supermix"]},
+  {id:"p07", nome:"NPK 6-15-12", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["npk 6-15-12","npk"]},
+  {id:"p08", nome:"Ferramol", cat:"Barreira", qtd:"🚚 Em trânsito", disponivel:false, link:"https://www.amazon.es/dp/B00AOM5EDQ", foto:"", estado:"transito", keys:["ferramol"]},
+  {id:"p09", nome:"Fita de Cobre", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["fita de cobre","copper"]},
+  {id:"p10", nome:"Cola Entomológica", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["cola entomológica","cola entomologica"]},
+  {id:"p11", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"⚠️ Por comprar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["ácido cítrico","acido citrico"]},
+  {id:"p18", nome:"Ácido Nítrico", cat:"Acidificante", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["ácido nítrico","acido nitrico","nitrico"]},
+  {id:"p12", nome:"Ácido Bórico (Dimor 500g)", cat:"Inseticida", qtd:"500g", disponivel:true, link:"https://www.farmaciass.pt", foto:"", estado:"disponivel", keys:["bórico","borico","dimor"]},
+  {id:"p13", nome:"Húmus Líquido Siro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["húmus líquido","humus liquido","siro"]},
+  {id:"p14", nome:"Steinernema kraussei (nematodes)", cat:"Nematoide", qtd:"⚠️ Por encomendar", disponivel:false, link:"https://www.amazon.es/s?k=steinernema+kraussei", foto:"", estado:"por_comprar", keys:["steinernema","nematodes","nematode"]},
+  {id:"p15", nome:"Bicarbonato de Sódio", cat:"Fungicida", qtd:"Por confirmar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bicarbonato"]},
+  {id:"p16", nome:"Neudorff Azet Fertilizante Cítricos", cat:"Nutrição", qtd:"⚠️ Esgotado", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["neudorff","azet"]},
+  {id:"p17", nome:"KB Fertilizante Citrinos & Mediterrâneas", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["kb fertilizante","guano marinho"]},
 ];
 
 const REPO = 'nnuxx/Fornos-ArvoresFruto';
@@ -327,6 +335,20 @@ function getProdutos() {
 
 function saveProdutos(prods) {
   localStorage.setItem('jardim_produtos', JSON.stringify(prods));
+}
+
+function setEstado(pid, estado) {
+  const prods = getProdutos();
+  const p = prods.find(x => x.id === pid);
+  if (p) {
+    p.estado = estado;
+    p.disponivel = (estado === 'disponivel');
+    if (estado === 'transito') p.qtd = p.qtd.includes('🚚')?p.qtd:'🚚 Em trânsito';
+    if (estado === 'por_comprar' && !p.qtd.includes('⚠️')) p.qtd = '⚠️ Por comprar';
+    if (estado === 'disponivel' && (p.qtd.includes('🚚')||p.qtd.includes('⚠️'))) p.qtd = 'disponível';
+    saveProdutos(prods);
+  }
+  renderStock();
 }
 
 function toggleDisponivel(pid) {
@@ -565,6 +587,7 @@ function renderStock() {
   const total = prods.length;
   const disponiveis = prods.filter(p => p.disponivel).length;
   const emFalta = total - disponiveis;
+  const emTransito = prods.filter(p => p.estado === 'transito').length;
 
   // Alertas: produtos em falta que bloqueiam tratamentos activos
   const alertas = [];
@@ -598,17 +621,21 @@ function renderStock() {
           <div class="prod-nome">${p.nome}</div>
           <div class="prod-det">${p.qtd}${p.link?` · <a class="link-compra" href="${p.link}" target="_blank" onclick="event.stopPropagation()">🛒 Comprar</a>`:''}</div>
         </div>
-        <div class="prod-acoes">
-          <button class="toggle-stock ${p.disponivel?'on':'off'}" onclick="event.stopPropagation();toggleDisponivel('${p.id}')" title="${p.disponivel?'Marcar como esgotado':'Marcar como disponível'}"></button>
-          <span style="font-size:10px;color:var(--cinza)">${p.disponivel?'Em stock':'Esgotado'}</span>
+        <div class="prod-acoes" onclick="event.stopPropagation()">
+          <select class="estado-select" onchange="setEstado('${p.id}',this.value)" style="font-size:11px;border:1.5px solid #E5E7EB;border-radius:8px;padding:4px 6px;font-family:'DM Sans',sans-serif;color:var(--verde);background:#fff;cursor:pointer">
+            <option value="disponivel" ${(p.estado||'disponivel')==='disponivel'?'selected':''}>✅ Disponível</option>
+            <option value="transito" ${p.estado==='transito'?'selected':''}>🚚 Em trânsito</option>
+            <option value="por_comprar" ${p.estado==='por_comprar'?'selected':''}>⚠️ Por comprar</option>
+          </select>
         </div>
       </div>`).join('');
   }).join('');
 
   document.getElementById('stockConteudo').innerHTML = `
-    <div class="stock-resumo">
+    <div class="stock-resumo" style="grid-template-columns:1fr 1fr 1fr">
       <div class="stock-stat"><div class="stock-stat-num ok">${disponiveis}</div><div class="stock-stat-label">Em stock</div></div>
-      <div class="stock-stat"><div class="stock-stat-num ${emFalta>0?'alert':'ok'}">${emFalta}</div><div class="stock-stat-label">Em falta</div></div>
+      <div class="stock-stat"><div class="stock-stat-num" style="color:var(--terra)">${emTransito}</div><div class="stock-stat-label">Em trânsito</div></div>
+      <div class="stock-stat"><div class="stock-stat-num ${emFalta>0?'alert':'ok'}">${emFalta - emTransito}</div><div class="stock-stat-label">Por comprar</div></div>
     </div>
     ${alertasHTML}
     ${catsHTML}
@@ -619,6 +646,7 @@ function renderStock() {
 function abrirModalProd() {
   document.getElementById('npNome').value = '';
   document.getElementById('npQtd').value = '';
+  document.getElementById('npEstado').value = 'disponivel';
   document.getElementById('npLink').value = '';
   document.getElementById('npFoto').value = '';
   document.getElementById('npKeys').value = '';
@@ -635,6 +663,7 @@ function abrirDetalhesProd(pid) {
   document.getElementById('npNome').value = p.nome;
   document.getElementById('npCat').value = p.cat;
   document.getElementById('npQtd').value = p.qtd;
+  document.getElementById('npEstado').value = p.estado || (p.disponivel ? 'disponivel' : 'por_comprar');
   document.getElementById('npLink').value = p.link || '';
   document.getElementById('npFoto').value = p.foto || '';
   document.getElementById('npKeys').value = (p.keys||[]).join(', ');
@@ -652,6 +681,8 @@ function guardarProduto() {
     nome,
     cat: document.getElementById('npCat').value,
     qtd: document.getElementById('npQtd').value.trim() || 'disponível',
+    estado: document.getElementById('npEstado').value,
+    disponivel: document.getElementById('npEstado').value === 'disponivel',
     link: document.getElementById('npLink').value.trim(),
     foto: document.getElementById('npFoto').value.trim(),
     keys: document.getElementById('npKeys').value.split(',').map(k => k.trim().toLowerCase()).filter(Boolean)
@@ -814,6 +845,7 @@ renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
