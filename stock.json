@@ -1,0 +1,130 @@
+{
+  "p02": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p03": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p04": {
+    "estado": "transito",
+    "historico": [
+      {
+        "data": "2026-06-24",
+        "tipo": "encomendado",
+        "nota": "500g x2"
+      }
+    ]
+  },
+  "p05": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p06": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p07": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p08": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p09": {
+    "estado": "por_comprar",
+    "historico": []
+  },
+  "p10": {
+    "estado": "transito",
+    "historico": [
+      {
+        "data": "2026-06-22",
+        "tipo": "encomendado",
+        "nota": ""
+      },
+      {
+        "data": "2026-06-24",
+        "tipo": "outro",
+        "nota": "Em trânsito, entrega prevista hoje"
+      }
+    ]
+  },
+  "p11": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p12": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p13": {
+    "estado": "disponivel",
+    "historico": [
+      {
+        "data": "2026-06-23",
+        "tipo": "encomendado",
+        "nota": "5kg Amazon.es"
+      },
+      {
+        "data": "2026-06-24",
+        "tipo": "chegou",
+        "nota": ""
+      }
+    ]
+  },
+  "p14": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p15": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p16": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p17": {
+    "estado": "disponivel",
+    "historico": [
+      {
+        "data": "2026-06-24",
+        "tipo": "chegou",
+        "nota": "Larvanem HB 50M"
+      }
+    ]
+  },
+  "p18": {
+    "estado": "transito",
+    "historico": [
+      {
+        "data": "2026-06-24",
+        "tipo": "encomendado",
+        "nota": ""
+      }
+    ]
+  },
+  "p19": {
+    "estado": "disponivel",
+    "historico": [
+      {
+        "data": "2026-06-21",
+        "tipo": "outro",
+        "nota": "1ª aplicação citrinos"
+      }
+    ]
+  },
+  "p20": {
+    "estado": "por_comprar",
+    "historico": [
+      {
+        "data": "2026-06-21",
+        "tipo": "esgotou",
+        "nota": "Substituído por KB Citrinos"
+      }
+    ]
+  }
+}
