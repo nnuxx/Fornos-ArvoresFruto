@@ -343,22 +343,22 @@ const REGISTOS_BASE = {
 const PRODUTOS_BASE = [
   {id:"p01", nome:"Fertibono Neem Oil", cat:"Inseticida", qtd:"1L", disponivel:true, link:"https://www.amazon.es/dp/B07QJV1YP3", foto:"", estado:"disponivel", keys:["neem"]},
   {id:"p02", nome:"Sabão Potássico", cat:"Inseticida", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["sabão potássico","sabao potassico"]},
-  {id:"p03", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"⚠️ Por encomendar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bordalesa","calda bordalesa"]},
+  {id:"p03", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bordalesa","calda bordalesa"]},
   {id:"p04", nome:"CANNA Mono Hierro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00JH3NZQE", foto:"", estado:"disponivel", keys:["canna mono hierro","mono hierro"]},
   {id:"p05", nome:"Flower Ferroflower", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B08C3NJTH3", foto:"", estado:"disponivel", keys:["ferroflower"]},
   {id:"p06", nome:"Plagron Supermix", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B07D3GFV4W", foto:"", estado:"disponivel", keys:["supermix","plagron supermix"]},
   {id:"p07", nome:"NPK 6-15-12", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["npk 6-15-12","npk"]},
   {id:"p08", nome:"Ferramol (substituído por Compo Bio)", cat:"Barreira", qtd:"Não necessário", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["ferramol"]},
-  {id:"p19", nome:"Compo Bio Anti-Limas", cat:"Barreira", qtd:"🚚 Em trânsito", disponivel:false, link:"", foto:"", estado:"transito", keys:["ferramol","anti-limas","anti limas","lesmas","limas","caracois","caracóis","fosfato ferrico"]},
+  {id:"p19", nome:"Compo Bio Anti-Limas", cat:"Barreira", qtd:"", disponivel:false, link:"", foto:"", estado:"transito", keys:["ferramol","anti-limas","anti limas","lesmas","limas","caracois","caracóis","fosfato ferrico"]},
   {id:"p09", nome:"Fita de Cobre", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["fita de cobre","copper"]},
   {id:"p10", nome:"Cola Entomológica", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["cola entomológica","cola entomologica"]},
-  {id:"p11", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"⚠️ Por comprar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["ácido cítrico","acido citrico"]},
+  {id:"p11", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["ácido cítrico","acido citrico"]},
   {id:"p18", nome:"Ácido Nítrico", cat:"Acidificante", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["ácido nítrico","acido nitrico","nitrico"]},
   {id:"p12", nome:"Ácido Bórico (Dimor 500g)", cat:"Inseticida", qtd:"500g", disponivel:true, link:"https://www.farmaciass.pt", foto:"", estado:"disponivel", keys:["bórico","borico","dimor"]},
   {id:"p13", nome:"Húmus Líquido Siro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["húmus líquido","humus liquido","siro"]},
-  {id:"p14", nome:"Steinernema kraussei (nematodes)", cat:"Nematoide", qtd:"⚠️ Por encomendar", disponivel:false, link:"https://www.amazon.es/s?k=steinernema+kraussei", foto:"", estado:"por_comprar", keys:["steinernema","nematodes","nematode"]},
+  {id:"p14", nome:"Steinernema kraussei (nematodes)", cat:"Nematoide", qtd:"", disponivel:false, link:"https://www.amazon.es/s?k=steinernema+kraussei", foto:"", estado:"por_comprar", keys:["steinernema","nematodes","nematode"]},
   {id:"p15", nome:"Bicarbonato de Sódio", cat:"Fungicida", qtd:"Por confirmar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bicarbonato"]},
-  {id:"p16", nome:"KB Fertilizante Cítricos & Mediterrâneas", cat:"Nutrição", qtd:"⚠️ Esgotado", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["neudorff","azet"]},
+  {id:"p16", nome:"KB Fertilizante Cítricos & Mediterrâneas", cat:"Nutrição", qtd:"", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["neudorff","azet"]},
   {id:"p17", nome:"KB Fertilizante Citrinos & Mediterrâneas", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["kb fertilizante","guano marinho"]},
 ];
 
@@ -697,12 +697,14 @@ async function guardarRegisto() {
 }
 
 // ── STOCK ─────────────────────────────────
-function mostrarStock() {
+async function mostrarStock() {
   setView('viewStock', '🧪 Stock');
   document.getElementById('navS').classList.add('active');
   document.getElementById('navD').classList.remove('active');
   document.getElementById('navT').classList.remove('active');
   document.getElementById('navI').classList.remove('active');
+  document.getElementById('stockConteudo').innerHTML='<div style="text-align:center;padding:40px;color:var(--cinza)">A carregar...</div>';
+  await carregarStock();
   renderStock();
 }
 
@@ -1182,3 +1184,4 @@ renderDashboard();
 </script>
 </body>
 </html>
+
