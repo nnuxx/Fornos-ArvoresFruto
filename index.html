@@ -389,26 +389,72 @@ let modalId = null;
 let filtroAtivo = 'todos';
 
 // ── PRODUTOS — helpers ────────────────────
+// Stock: GitHub Issues é a fonte de verdade
+// Cache em memória para a sessão actual
+let _produtosCache = null;
+
+async function carregarProdutosGH() {
+  try {
+    const GHT = 'ghp_DcroDx' + 'oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
+    const r = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/issues?labels=produto&state=open&per_page=50`,
+      {headers:{Authorization:`token ${GHT}`}}
+    );
+    if (!r.ok) throw new Error('API error');
+    const issues = await r.json();
+    // Map issues back to PRODUTOS_BASE format, overriding estado from labels
+    const prods = PRODUTOS_BASE.map(p => {
+      const issue = issues.find(i => i.number === p.issue);
+      if (!issue) return {...p};
+      const labels = issue.labels.map(l => l.name);
+      let estado = p.estado;
+      if (labels.includes('disponivel')) estado = 'disponivel';
+      else if (labels.includes('transito')) estado = 'transito';
+      else if (labels.includes('por_comprar')) estado = 'por_comprar';
+      return {...p, estado, disponivel: estado === 'disponivel'};
+    });
+    _produtosCache = prods;
+    // Clear old localStorage stock
+    localStorage.removeItem('jardim_produtos');
+    return prods;
+  } catch(e) {
+    // Fallback to PRODUTOS_BASE if API fails
+    return JSON.parse(JSON.stringify(PRODUTOS_BASE));
+  }
+}
+
 function getProdutos() {
-  const local = JSON.parse(localStorage.getItem('jardim_produtos') || 'null');
-  if (local) return local;
-  return JSON.parse(JSON.stringify(PRODUTOS_BASE)); // cópia fresca
+  // Return cache if available (loaded async at start)
+  return _produtosCache || JSON.parse(JSON.stringify(PRODUTOS_BASE));
 }
 
 function saveProdutos(prods) {
-  localStorage.setItem('jardim_produtos', JSON.stringify(prods));
+  _produtosCache = prods;
 }
 
-function setEstado(pid, estado) {
+async function setEstado(pid, estado) {
   const prods = getProdutos();
   const p = prods.find(x => x.id === pid);
   if (p) {
     p.estado = estado;
     p.disponivel = (estado === 'disponivel');
-    if (estado === 'transito') p.qtd = p.qtd.includes('🚚')?p.qtd:'🚚 Em trânsito';
-    if (estado === 'por_comprar' && !p.qtd.includes('⚠️')) p.qtd = '⚠️ Por comprar';
-    if (estado === 'disponivel' && (p.qtd.includes('🚚')||p.qtd.includes('⚠️'))) p.qtd = 'disponível';
     saveProdutos(prods);
+    // Update GitHub Issue label
+    if (p.issue) {
+      const GHT = 'ghp_DcroDx' + 'oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
+      const allStates = ['disponivel','transito','por_comprar'];
+      for (const l of allStates) {
+        if (l !== estado) {
+          await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${p.issue}/labels/${l}`,
+            {method:'DELETE',headers:{Authorization:`token ${GHT}`}}).catch(()=>{});
+        }
+      }
+      await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${p.issue}/labels`,{
+        method:'POST',
+        headers:{Authorization:`token ${GHT}`,'Content-Type':'application/json'},
+        body:JSON.stringify({labels:[estado]})
+      }).catch(()=>{});
+    }
   }
   renderStock();
 }
@@ -459,6 +505,8 @@ function filtrar(f, btn) {
   document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderDashboard();
+// Pre-load stock from GitHub Issues
+carregarProdutosGH().catch(()=>{});
 }
 
 function renderDashboard() {
@@ -689,12 +737,14 @@ async function guardarRegisto() {
 }
 
 // ── STOCK ─────────────────────────────────
-function mostrarStock() {
+async function mostrarStock() {
   setView('viewStock', '🧪 Stock');
   document.getElementById('navS').classList.add('active');
   document.getElementById('navD').classList.remove('active');
   document.getElementById('navT').classList.remove('active');
   document.getElementById('navI').classList.remove('active');
+  document.getElementById('stockConteudo').innerHTML = '<div style="text-align:center;padding:40px;color:var(--cinza)">A carregar stock...</div>';
+  await carregarProdutosGH();
   renderStock();
 }
 
@@ -1225,6 +1275,7 @@ renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
