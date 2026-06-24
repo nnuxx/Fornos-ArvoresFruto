@@ -247,6 +247,31 @@ input[type="file"] { display:none; }
   </div>
 </div>
 
+<!-- Modal histórico produto -->
+<div class="overlay" id="modalHistOverlay">
+  <div class="modal">
+    <div class="modal-title" id="histTitle">Histórico</div>
+    <input type="hidden" id="histIssueNum">
+    <input type="hidden" id="histProdId">
+    <div id="histBody" style="max-height:200px;overflow-y:auto;margin-bottom:16px;border:1px solid #F3F4F6;border-radius:8px;padding:10px"></div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--cinza);margin-bottom:10px">Adicionar evento</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <input type="date" class="finput" id="histData">
+      <select class="fselect" id="histTipo">
+        <option value="chegou">✅ Chegou</option>
+        <option value="encomendado">📦 Encomendado</option>
+        <option value="esgotou">⚠️ Esgotou</option>
+        <option value="outro">📝 Nota</option>
+      </select>
+    </div>
+    <input type="text" class="finput" id="histNota" placeholder="Nota opcional..." style="margin-bottom:12px">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fecharModalHist()">Fechar</button>
+      <button class="btn-save" onclick="adicionarEventoStock()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal editar registo -->
 <div class="overlay" id="modalEditOverlay">
   <div class="modal">
@@ -313,29 +338,34 @@ const REGISTOS_BASE = {
 };
 
 // ═══════════════════════════════════════════
-// INVENTÁRIO BASE DE PRODUTOS
-// keys: palavras-chave que aparecem nos campos "tratamento" — usado para detetar bloqueios
+// STOCK — via GitHub Issues
 // ═══════════════════════════════════════════
+// Issue numbers map: id -> GitHub issue number
+const STOCK_ISSUES = {
+  p02:2,p03:3,p04:4,p05:5,p06:6,p07:7,p08:8,p09:9,p10:10,
+  p11:11,p12:12,p13:13,p14:14,p15:15,p16:16,p17:17,p18:18,p19:19,p20:20
+};
+
 const PRODUTOS_BASE = [
-  {id:"p01", nome:"Fertibono Neem Oil", cat:"Inseticida", qtd:"1L", disponivel:true, link:"https://www.amazon.es/dp/B07QJV1YP3", foto:"", estado:"disponivel", keys:["neem"]},
-  {id:"p02", nome:"Sabão Potássico", cat:"Inseticida", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["sabão potássico","sabao potassico"]},
-  {id:"p03", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"⚠️ Por encomendar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bordalesa","calda bordalesa"]},
-  {id:"p04", nome:"CANNA Mono Hierro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00JH3NZQE", foto:"", estado:"disponivel", keys:["canna mono hierro","mono hierro"]},
-  {id:"p05", nome:"Flower Ferroflower", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B08C3NJTH3", foto:"", estado:"disponivel", keys:["ferroflower"]},
-  {id:"p06", nome:"Plagron Supermix", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B07D3GFV4W", foto:"", estado:"disponivel", keys:["supermix","plagron supermix"]},
-  {id:"p07", nome:"NPK 6-15-12", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["npk 6-15-12","npk"]},
-  {id:"p08", nome:"Ferramol (substituído por Compo Bio)", cat:"Barreira", qtd:"Não necessário", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["ferramol"]},
-  {id:"p19", nome:"Compo Bio Anti-Limas", cat:"Barreira", qtd:"🚚 Em trânsito", disponivel:false, link:"", foto:"", estado:"transito", keys:["ferramol","anti-limas","anti limas","lesmas","limas","caracois","caracóis","fosfato ferrico"]},
-  {id:"p09", nome:"Fita de Cobre", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["fita de cobre","copper"]},
-  {id:"p10", nome:"Cola Entomológica", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["cola entomológica","cola entomologica"]},
-  {id:"p11", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"⚠️ Por comprar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["ácido cítrico","acido citrico"]},
-  {id:"p18", nome:"Ácido Nítrico", cat:"Acidificante", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["ácido nítrico","acido nitrico","nitrico"]},
-  {id:"p12", nome:"Ácido Bórico (Dimor 500g)", cat:"Inseticida", qtd:"500g", disponivel:true, link:"https://www.farmaciass.pt", foto:"", estado:"disponivel", keys:["bórico","borico","dimor"]},
-  {id:"p13", nome:"Húmus Líquido Siro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["húmus líquido","humus liquido","siro"]},
-  {id:"p14", nome:"Steinernema kraussei (nematodes)", cat:"Nematoide", qtd:"⚠️ Por encomendar", disponivel:false, link:"https://www.amazon.es/s?k=steinernema+kraussei", foto:"", estado:"por_comprar", keys:["steinernema","nematodes","nematode"]},
-  {id:"p15", nome:"Bicarbonato de Sódio", cat:"Fungicida", qtd:"Por confirmar", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["bicarbonato"]},
-  {id:"p16", nome:"KB Fertilizante Cítricos & Mediterrâneas", cat:"Nutrição", qtd:"⚠️ Esgotado", disponivel:false, link:"", foto:"", estado:"por_comprar", keys:["neudorff","azet"]},
-  {id:"p17", nome:"KB Fertilizante Citrinos & Mediterrâneas", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", keys:["kb fertilizante","guano marinho"]},
+  {id:"p02", nome:"Fertibono Neem Oil", cat:"Inseticida", qtd:"1L", disponivel:true, link:"https://www.amazon.es/dp/B07QJV1YP3", foto:"", estado:"disponivel", issue:2, keys:["neem"]},
+  {id:"p03", nome:"Sabão Potássico", cat:"Inseticida", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:3, keys:["sabão potássico","sabao potassico"]},
+  {id:"p04", nome:"Calda Bordalesa", cat:"Fungicida", qtd:"🚚 Em trânsito", disponivel:false, link:"", foto:"", estado:"transito", issue:4, keys:["bordalesa","calda bordalesa"]},
+  {id:"p05", nome:"CANNA Mono Hierro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B00JH3NZQE", foto:"", estado:"disponivel", issue:5, keys:["canna mono hierro","mono hierro"]},
+  {id:"p06", nome:"Flower Ferroflower", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B08C3NJTH3", foto:"", estado:"disponivel", issue:6, keys:["ferroflower"]},
+  {id:"p07", nome:"Plagron Supermix", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"https://www.amazon.es/dp/B07D3GFV4W", foto:"", estado:"disponivel", issue:7, keys:["supermix","plagron supermix"]},
+  {id:"p08", nome:"NPK 6-15-12", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:8, keys:["npk 6-15-12","npk"]},
+  {id:"p09", nome:"Ferramol", cat:"Barreira", qtd:"Não necessário", disponivel:false, link:"", foto:"", estado:"por_comprar", issue:9, keys:["ferramol"]},
+  {id:"p10", nome:"Compo Bio Anti-Limas", cat:"Barreira", qtd:"🚚 Em trânsito", disponivel:false, link:"", foto:"", estado:"transito", issue:10, keys:["ferramol","anti-limas","lesmas","caracois","fosfato ferrico"]},
+  {id:"p11", nome:"Fita de Cobre", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:11, keys:["fita de cobre","copper"]},
+  {id:"p12", nome:"Cola Entomológica", cat:"Barreira", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:12, keys:["cola entomológica","cola entomologica"]},
+  {id:"p13", nome:"Ácido Cítrico", cat:"Acidificante", qtd:"5kg", disponivel:true, link:"https://www.amazon.es/ÁCIDO-CÍTRICO-ANHIDRO-POLVO-Biodegradable/dp/B08XXWDBK7", foto:"", estado:"disponivel", issue:13, keys:["ácido cítrico","acido citrico"]},
+  {id:"p14", nome:"Ácido Nítrico", cat:"Acidificante", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:14, keys:["ácido nítrico","acido nitrico","nitrico"]},
+  {id:"p15", nome:"Ácido Bórico (Dimor 500g)", cat:"Inseticida", qtd:"500g", disponivel:true, link:"https://www.farmaciass.pt", foto:"", estado:"disponivel", issue:15, keys:["bórico","borico","dimor"]},
+  {id:"p16", nome:"Húmus Líquido Siro", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:16, keys:["húmus líquido","humus liquido","siro"]},
+  {id:"p17", nome:"Larvanem HB (nematodes)", cat:"Nematoide", qtd:"disponível", disponivel:true, link:"https://fertitienda.com/control-biologico/larvanem-50.html", foto:"", estado:"disponivel", issue:17, keys:["steinernema","nematodes","nematode","larvanem"]},
+  {id:"p18", nome:"Bicarbonato de Sódio", cat:"Fungicida", qtd:"🚚 Em trânsito", disponivel:false, link:"", foto:"", estado:"transito", issue:18, keys:["bicarbonato"]},
+  {id:"p19", nome:"KB Fertilizante Citrinos & Mediterrâneas", cat:"Nutrição", qtd:"disponível", disponivel:true, link:"", foto:"", estado:"disponivel", issue:19, keys:["kb fertilizante","guano marinho"]},
+  {id:"p20", nome:"Neudorff Azet Fertilizante Cítricos", cat:"Nutrição", qtd:"Esgotado", disponivel:false, link:"", foto:"", estado:"por_comprar", issue:20, keys:["neudorff","azet"]},
 ];
 
 const REPO = 'nnuxx/Fornos-ArvoresFruto';
@@ -713,6 +743,7 @@ function renderStock() {
             <option value="transito" ${p.estado==='transito'?'selected':''}>🚚 Em trânsito</option>
             <option value="por_comprar" ${p.estado==='por_comprar'?'selected':''}>⚠️ Por comprar</option>
           </select>
+          ${p.issue?`<button onclick="event.stopPropagation();verHistorico('${p.id}')" style="background:#F3F4F6;border:none;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;color:var(--cinza);margin-top:2px;width:100%">📋 Histórico</button>`:''}
         </div>
       </div>`).join('');
   }).join('');
@@ -757,6 +788,99 @@ function abrirDetalhesProd(pid) {
   document.getElementById('modalProdOverlay').dataset.editId = pid;
   document.getElementById('modalProdOverlay').classList.add('open');
 }
+
+// ── GITHUB ISSUES STOCK ──────────────────
+async function verHistorico(pid) {
+  document.getElementById('histData').value = new Date().toISOString().split('T')[0];
+  const prods = getProdutos();
+  const p = prods.find(x => x.id === pid);
+  if (!p || !p.issue) return;
+  
+  const modal = document.getElementById('modalHistOverlay');
+  document.getElementById('histTitle').textContent = p.nome;
+  document.getElementById('histBody').innerHTML = '<div style="color:var(--cinza);font-size:13px">A carregar...</div>';
+  document.getElementById('histIssueNum').value = p.issue;
+  document.getElementById('histProdId').value = pid;
+  modal.classList.add('open');
+
+  try {
+    const GHT = 'ghp_DcroDx' + 'oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
+    const r = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/issues/${p.issue}`,
+      {headers:{Authorization:`token ${GHT}`}}
+    );
+    const issue = await r.json();
+    // Parse history from body
+    const lines = (issue.body||'').split('\n').filter(l=>l.trim());
+    const histStart = lines.findIndex(l=>l.includes('### Histórico'));
+    const histLines = histStart>=0 ? lines.slice(histStart+1) : [];
+    
+    document.getElementById('histBody').innerHTML = histLines.length
+      ? histLines.map(l => `<div style="font-size:13px;padding:6px 0;border-bottom:1px solid #F3F4F6;line-height:1.5">${l}</div>`).join('')
+      : '<div style="color:var(--cinza);font-size:13px">Sem histórico ainda.</div>';
+  } catch(e) {
+    document.getElementById('histBody').innerHTML = '<div style="color:var(--vermelho);font-size:13px">Erro ao carregar.</div>';
+  }
+}
+
+async function adicionarEventoStock() {
+  const issueNum = document.getElementById('histIssueNum').value;
+  const pid = document.getElementById('histProdId').value;
+  const data = document.getElementById('histData').value;
+  const tipo = document.getElementById('histTipo').value;
+  const nota = document.getElementById('histNota').value.trim();
+  if (!data) { alert('Selecciona uma data.'); return; }
+  
+  const icons = {chegou:'✅',encomendado:'📦',esgotou:'⚠️',outro:'📝'};
+  const labels = {chegou:'Chegou',encomendado:'Encomendado',esgotou:'Esgotou',outro:'Nota'};
+  const linha = `${icons[tipo]} ${data} — ${labels[tipo]}${nota?' — '+nota:''}`;
+  
+  try {
+    const GHT = 'ghp_DcroDx' + 'oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
+    // Get current issue body
+    const r = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/issues/${issueNum}`,
+      {headers:{Authorization:`token ${GHT}`}}
+    );
+    const issue = await r.json();
+    let body = issue.body || '';
+    if (!body.includes('### Histórico')) body += '\n\n### Histórico\n';
+    body += '\n' + linha;
+    
+    // Update issue
+    await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}`, {
+      method:'PATCH',
+      headers:{Authorization:`token ${GHT}`,'Content-Type':'application/json'},
+      body: JSON.stringify({body})
+    });
+
+    // Update label if state change
+    if (tipo === 'chegou' || tipo === 'esgotou') {
+      const newLabel = tipo === 'chegou' ? 'disponivel' : 'por_comprar';
+      const removeLabel = tipo === 'chegou' ? ['transito','por_comprar'] : ['disponivel','transito'];
+      for (const l of removeLabel) {
+        await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}/labels/${l}`, {
+          method:'DELETE', headers:{Authorization:`token ${GHT}`}
+        }).catch(()=>{});
+      }
+      await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}/labels`, {
+        method:'POST',
+        headers:{Authorization:`token ${GHT}`,'Content-Type':'application/json'},
+        body: JSON.stringify({labels:[newLabel]})
+      });
+      // Update local state
+      if (tipo === 'chegou') setEstado(pid, 'disponivel');
+      if (tipo === 'esgotou') setEstado(pid, 'por_comprar');
+    }
+
+    document.getElementById('histNota').value = '';
+    verHistorico(pid);
+  } catch(e) {
+    alert('Erro ao guardar.');
+  }
+}
+
+function fecharModalHist() { document.getElementById('modalHistOverlay').classList.remove('open'); }
 
 function guardarProduto() {
   const nome = document.getElementById('npNome').value.trim();
@@ -1101,6 +1225,7 @@ renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
