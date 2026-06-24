@@ -426,18 +426,12 @@ function saveProdutos(prods) {
   prods.forEach(p=>{if(!_stockCache[p.id])_stockCache[p.id]={historico:[]};_stockCache[p.id].estado=p.estado||'disponivel';});
 }
 
-async function setEstado(pid, estado) {
+function setEstado(pid, estado) {
   if(!_stockCache)_stockCache={};
   if(!_stockCache[pid])_stockCache[pid]={historico:[]};
   _stockCache[pid].estado=estado;
-  mostrarToast('A guardar...', '#666');
-  try {
-    await guardarStock();
-    mostrarToast('✅ Guardado no GitHub', 'var(--verde-m)');
-  } catch(e) {
-    mostrarToast('❌ Erro: '+e.message, 'var(--vermelho)');
-    console.error('guardarStock error:', e);
-  }
+  guardarStock();
+  mostrarToast('✅ Guardado', 'var(--verde-m)');
   renderStock();
 }
 
@@ -732,14 +726,13 @@ async function guardarRegisto() {
 }
 
 // ── STOCK ─────────────────────────────────
-async function mostrarStock() {
+function mostrarStock() {
   setView('viewStock', '🧪 Stock');
   document.getElementById('navS').classList.add('active');
   document.getElementById('navD').classList.remove('active');
   document.getElementById('navT').classList.remove('active');
   document.getElementById('navI').classList.remove('active');
-  document.getElementById('stockConteudo').innerHTML='<div style="text-align:center;padding:40px;color:var(--cinza)">A carregar...</div>';
-  await carregarStock();
+  carregarStock();
   renderStock();
 }
 
@@ -1201,7 +1194,7 @@ async function adicionarEventoStock() {
     _stockCache[pid].historico.push({data,tipo,nota});
     if(tipo==='chegou')_stockCache[pid].estado='disponivel';
     if(tipo==='esgotou')_stockCache[pid].estado='por_comprar';
-    await guardarStock();
+    guardarStock();
     renderHistorico(_stockCache[pid].historico||[]);
     document.getElementById('histNota').value='';
     btn.textContent='✅ Guardado!';
@@ -1217,6 +1210,7 @@ renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
