@@ -853,23 +853,28 @@ async function verHistorico(pid) {
   document.getElementById('histProdId').value = pid;
   modal.classList.add('open');
 
+  await recarregarHistorico(p.issue);
+}
+
+async function recarregarHistorico(issueNum) {
   try {
     const GHT = 'ghp_DcroDx' + 'oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
     const r = await fetch(
-      `https://api.github.com/repos/${GH_REPO}/issues/${p.issue}`,
-      {headers:{Authorization:`token ${GHT}`}}
+      `https://api.github.com/repos/${GH_REPO}/issues/${issueNum}`,
+      {headers:{Authorization:`token ${GHT}`, 'Cache-Control':'no-cache'}}
     );
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const issue = await r.json();
-    // Parse history from body
-    const lines = (issue.body||'').split('\n').filter(l=>l.trim());
-    const histStart = lines.findIndex(l=>l.includes('### Histórico'));
-    const histLines = histStart>=0 ? lines.slice(histStart+1) : [];
+    const body = issue.body || '';
+    const idx = body.indexOf('### Histórico');
+    const histText = idx >= 0 ? body.slice(idx + 13).trim() : '';
+    const histLines = histText.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
     
     document.getElementById('histBody').innerHTML = histLines.length
       ? histLines.map(l => `<div style="font-size:13px;padding:6px 0;border-bottom:1px solid #F3F4F6;line-height:1.5">${l}</div>`).join('')
       : '<div style="color:var(--cinza);font-size:13px">Sem histórico ainda.</div>';
   } catch(e) {
-    document.getElementById('histBody').innerHTML = '<div style="color:var(--vermelho);font-size:13px">Erro ao carregar.</div>';
+    document.getElementById('histBody').innerHTML = `<div style="color:var(--vermelho);font-size:13px">Erro: ${e.message}</div>`;
   }
 }
 
@@ -881,52 +886,59 @@ async function adicionarEventoStock() {
   const nota = document.getElementById('histNota').value.trim();
   if (!data) { alert('Selecciona uma data.'); return; }
   
+  const btn = document.querySelector('#modalHistOverlay .btn-save');
+  btn.textContent = 'A guardar...';
+  btn.disabled = true;
+
   const icons = {chegou:'✅',encomendado:'📦',esgotou:'⚠️',outro:'📝'};
   const labels = {chegou:'Chegou',encomendado:'Encomendado',esgotou:'Esgotou',outro:'Nota'};
-  const linha = `${icons[tipo]} ${data} — ${labels[tipo]}${nota?' — '+nota:''}`;
+  // Format date as DD/MM/YYYY
+  const [y,m,d] = data.split('-');
+  const dataFmt = `${d}/${m}/${y}`;
+  const linha = `${icons[tipo]} ${dataFmt} — ${labels[tipo]}${nota?' — '+nota:''}`;
   
   try {
     const GHT = 'ghp_DcroDx' + 'oaf0Hwi2ZVOAOStQNBjQViWj2MZBSY';
-    // Get current issue body
     const r = await fetch(
       `https://api.github.com/repos/${GH_REPO}/issues/${issueNum}`,
       {headers:{Authorization:`token ${GHT}`}}
     );
+    if (!r.ok) throw new Error(`Erro ao ler Issue: ${r.status}`);
     const issue = await r.json();
     let body = issue.body || '';
     if (!body.includes('### Histórico')) body += '\n\n### Histórico\n';
     body += '\n' + linha;
     
-    // Update issue
-    await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}`, {
+    const patch = await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}`, {
       method:'PATCH',
       headers:{Authorization:`token ${GHT}`,'Content-Type':'application/json'},
       body: JSON.stringify({body})
     });
+    if (!patch.ok) throw new Error(`Erro ao guardar: ${patch.status}`);
 
-    // Update label if state change
     if (tipo === 'chegou' || tipo === 'esgotou') {
       const newLabel = tipo === 'chegou' ? 'disponivel' : 'por_comprar';
-      const removeLabel = tipo === 'chegou' ? ['transito','por_comprar'] : ['disponivel','transito'];
-      for (const l of removeLabel) {
-        await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}/labels/${l}`, {
-          method:'DELETE', headers:{Authorization:`token ${GHT}`}
-        }).catch(()=>{});
+      const removeLabels = tipo === 'chegou' ? ['transito','por_comprar'] : ['disponivel','transito'];
+      for (const l of removeLabels) {
+        await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}/labels/${l}`,
+          {method:'DELETE',headers:{Authorization:`token ${GHT}`}}).catch(()=>{});
       }
-      await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}/labels`, {
+      await fetch(`https://api.github.com/repos/${GH_REPO}/issues/${issueNum}/labels`,{
         method:'POST',
         headers:{Authorization:`token ${GHT}`,'Content-Type':'application/json'},
-        body: JSON.stringify({labels:[newLabel]})
+        body:JSON.stringify({labels:[newLabel]})
       });
-      // Update local state
-      if (tipo === 'chegou') setEstado(pid, 'disponivel');
-      if (tipo === 'esgotou') setEstado(pid, 'por_comprar');
+      await setEstado(pid, newLabel);
     }
 
     document.getElementById('histNota').value = '';
-    verHistorico(pid);
+    btn.textContent = '✅ Guardado!';
+    setTimeout(() => { btn.textContent = 'Guardar'; btn.disabled = false; }, 1500);
+    await recarregarHistorico(issueNum);
   } catch(e) {
-    alert('Erro ao guardar.');
+    btn.textContent = 'Guardar';
+    btn.disabled = false;
+    alert('Erro: ' + e.message);
   }
 }
 
@@ -1275,6 +1287,7 @@ renderDashboard();
 </script>
 </body>
 </html>
+
 
 
 
