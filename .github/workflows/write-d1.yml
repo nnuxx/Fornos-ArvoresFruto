@@ -1,0 +1,27 @@
+name: Write to D1
+
+on:
+  workflow_dispatch:
+    inputs:
+      sql:
+        description: 'SQL statements to execute'
+        required: true
+        type: string
+
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Wrangler
+        run: npm install -g wrangler@4
+
+      - name: Execute SQL on D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          echo "${{ github.event.inputs.sql }}" > /tmp/payload.sql
+          wrangler d1 execute db_fornos-arvores-fruto \
+            --database-id=${{ secrets.D1_DATABASE_ID }} \
+            --remote \
+            --file=/tmp/payload.sql
