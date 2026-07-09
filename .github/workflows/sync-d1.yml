@@ -1,0 +1,63 @@
+name: Sync D1 to GitHub
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # auto-sync every 6 hours
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Wrangler
+        run: npm install -g wrangler@4
+
+      - name: Export registos from D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          mkdir -p _cache
+          wrangler d1 execute db_fornos-arvores-fruto --remote --yes --json \
+            --command="SELECT * FROM registos ORDER BY arvore_id, data ASC" \
+            > /tmp/raw.json
+          # Extract results array and save
+          python3 -c "
+          import json, sys
+          raw = json.load(open('/tmp/raw.json'))
+          results = raw[0]['results'] if isinstance(raw, list) else raw.get('results', [])
+          json.dump(results, open('_cache/registos.json', 'w'), ensure_ascii=False, indent=2)
+          print(f'Exported {len(results)} records')
+          "
+
+      - name: Export stock from D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          wrangler d1 execute db_fornos-arvores-fruto --remote --yes --json \
+            --command="SELECT * FROM stock ORDER BY pid ASC" \
+            > /tmp/raw_stock.json
+          python3 -c "
+          import json
+          raw = json.load(open('/tmp/raw_stock.json'))
+          results = raw[0]['results'] if isinstance(raw, list) else raw.get('results', [])
+          out = {}
+          for r in results:
+              out[r['pid']] = {'estado': r['estado'], 'historico': json.loads(r['historico'] or '[]')}
+          json.dump(out, open('_cache/stock.json', 'w'), ensure_ascii=False, indent=2)
+          print(f'Exported {len(results)} stock items')
+          "
+
+      - name: Commit cache
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "D1 Sync"
+          git add _cache/
+          git diff --staged --quiet || git commit -m "sync: D1 cache $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
