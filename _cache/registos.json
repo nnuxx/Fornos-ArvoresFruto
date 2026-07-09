@@ -1,0 +1,713 @@
+[
+  {
+    "id": "r1_1",
+    "arvore_id": 1,
+    "data": "2026-06-20",
+    "diagnostico": "Crivado fúngico (Wilsonomyces carpophilus) ativo — manchas circulares amarelo-alaranjadas com halo vermelho. Clorose internerval Fe/Mg. Caule com manchas purpúreas nos nós a vigiar (possível cancro bacteriano ou stress).",
+    "tratamento": "Pendente: Calda bordalesa foliar 1 aplicação; CANNA Mono Hierro 2-3ml/L em rega 1x/sem × 3 semanas.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_2",
+    "arvore_id": 1,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado (todas as árvores).",
+    "tratamento": "✅ Fio de óleo de neem puro (Fertibono) aplicado à volta do caule, raio 5-10cm — barreira anti-insectos rastejantes. Flower Ferroflower adicionado à água de rega. pH da água verificado: 5.0. Rega ligeira até início de drenagem.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_3",
+    "arvore_id": 1,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.5. Nectarina — pH 6.5 medido após rega com Ferroflower (pH água 5.0). Descida ainda insuficiente. Citrinos do mesmo lote já em 5.5-6.0.",
+    "tratamento": "Continuar rega com água acidificada (pH 5.0) + Ferroflower. Monitorizar evolução.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_4",
+    "arvore_id": 1,
+    "data": "2026-06-22",
+    "diagnostico": "DIAGNÓSTICO (fotos 22/06): 1. Crivado fúngico activo (Wilsonomyces carpophilus) — manchas circulares alaranjadas com halo amarelo, fase avançada com perfurações em vários ramos. 2. Clorose internerval Fe/Mn — folhas jovens amarelo-lima, pH 6.5 limita absorção. 3. Manchas purpúreas nos internós do caule — vigiar cancro bacteriano (Pseudomonas syringae). 4. Pontos brancos nos pecíolos — possíveis ovos/exúvias cochonilha ou ácaro.",
+    "tratamento": "PRIORITÁRIO: Calda bordalesa foliar (por comprar) — 1 aplicação urgente para travar crivado. Neem foliar 5ml/L + sabão 2ml/L ao fim do dia (2ª e 5ª). Continuar rega acidificada até pH < 6.0. MONITORIZAR: manchas purpúreas no caule semanalmente.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_1783252175029",
+    "arvore_id": 1,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5-7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_diag_20260705",
+    "arvore_id": 1,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Crivado fúngico (Wilsonomyces carpophilus) em progressão — manchas alaranjadas com halo amarelo numerosas, algumas já perfuradas (fase avançada). Necrose marginal nas folhas por stress hídrico da onda de calor. Manchas purpúreas no caule mantêm-se. pH substrato 6.5 — voltou ao valor de partida, Ferroflower bloqueado.",
+    "tratamento": "1. Acidificação urgente: ácido cítrico 2g/L 3x/sem 3 semanas. 2. Neem foliar 5ml/L + sabão potássico 2ml/L ao fim do dia 2x/sem (supressão fúngica). 3. Rega de recuperação pós-calor profunda amanhã cedo. 4. Ferroflower só após pH menor que 6.0. 5. Monitorizar caule semanalmente.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_1783554313298",
+    "arvore_id": 1,
+    "data": "2026-07-08",
+    "diagnostico": "Mudança de vaso.",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_1783554313468",
+    "arvore_id": 1,
+    "data": "2026-07-08",
+    "diagnostico": "Mudança de vaso.",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r1_1783592531476",
+    "arvore_id": 1,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0. Vaso novo.\n38cm diâmetro × 35cm altura (sem grande afunilamento) ≈ ~40L",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_1",
+    "arvore_id": 2,
+    "data": "2026-06-20",
+    "diagnostico": "Clorose internerval Fe em folhas jovens. Folhas enroladas — possível stress hídrico leve. Dois caules na base — verificar se ramo basal é do porta-enxerto.",
+    "tratamento": "Pendente: Ferroflower ou CANNA Mono Hierro 2ml/L 1x/sem. Verificar ramo basal.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_2",
+    "arvore_id": 2,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral + nutrição citrino.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso. KB Fertilizante Cítricos & Mediterrâneas aplicado — granulado espalhado à superfície do substrato, incorporado ligeiramente com garfo, regado de seguida (orgânico + micorrizas, efeito 3-4 meses).",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_3",
+    "arvore_id": 2,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 5.5-6.0. Laranjeira — pH 5.5-6.0 medido após rega. Boa descida. Zona ideal para citrino (5.5-6.5).",
+    "tratamento": "Manter rega com água pH 5.0. Não acidificar mais por agora — pH já em zona correcta.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_1783252256294",
+    "arvore_id": 2,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_diag_20260705",
+    "arvore_id": 2,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Clorose internerval Fe moderada nas folhas jovens. Estado foliar razoável para citrino em verão. pH presumivelmente subido pela onda de calor. Dois caules basais presentes — confirmar se ramo basal é do porta-enxerto.",
+    "tratamento": "1. Medir pH — objetivo 5.5-6.2. Se acima de 6.2 acidificar com ácido cítrico 2g/L. 2. Retomar Ferroflower na próxima rega. 3. KB Fertilizante Cítricos 2ª aplicação em Julho/Agosto. 4. Verificar ramo basal.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_1783592598938",
+    "arvore_id": 2,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_1",
+    "arvore_id": 3,
+    "data": "2026-06-20",
+    "diagnostico": "pH 6.5 medido — limite superior para citrino. Clorose Fe incipiente nas folhas jovens (amarelo-lima). Possível défice Mg nas folhas maduras.",
+    "tratamento": "Pendente: Acidificação com ácido cítrico para pH 5.8-6.2. Ferroflower 2ml/L 1x/sem.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_2",
+    "arvore_id": 3,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral + nutrição citrino.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso. KB Fertilizante Cítricos & Mediterrâneas aplicado — granulado espalhado à superfície do substrato, incorporado ligeiramente com garfo, regado de seguida.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_3",
+    "arvore_id": 3,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 5.5-6.0. Mandarino — pH 5.5-6.0 medido após rega. Descida desde 6.5. Zona ideal.",
+    "tratamento": "Manter rega com água pH 5.0. pH corrigido — Ferroflower agora biodisponível.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_1783252324638",
+    "arvore_id": 3,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_diag_20260705",
+    "arvore_id": 3,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: pH medido 6.5 — subida desde a correção de junho (estava 5.5-6.0). Substrato a tamponar de volta para valores alcalinos. Clorose Fe incipiente nas folhas jovens.",
+    "tratamento": "1. Acidificação imediata: ácido cítrico 2g/L nas próximas 3 regas. 2. Ferroflower após pH menor que 6.2. 3. KB Fertilizante Cítricos próxima semana. 4. Manter rega com água pH 5.0 de forma consistente.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_1783592616054",
+    "arvore_id": 3,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r4_1",
+    "arvore_id": 4,
+    "data": "2026-06-20",
+    "diagnostico": "Lagarta ativa confirmada visualmente no ramo. Danos foliares por mastigação. Floração ativa presente. Clorose Mg nas folhas basais.",
+    "tratamento": "URGENTE: Remoção manual da lagarta hoje. Neem 5ml/L + sabão potássico 2ml/L ao fim do dia (não nas flores). NPK 6-15-12 em rega quinzenal.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r4_2",
+    "arvore_id": 4,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral + nutrição citrino.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso. KB Fertilizante Cítricos & Mediterrâneas aplicado — granulado espalhado à superfície do substrato, incorporado ligeiramente com garfo, regado de seguida.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r4_3",
+    "arvore_id": 4,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 5.5-6.0. Kumquat — pH 5.5-6.0 medido após rega. Zona ideal para citrino.",
+    "tratamento": "Manter rega com água pH 5.0. Monitorizar lagarta — tratamento neem pendente.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r4_1783252368283",
+    "arvore_id": 4,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5-7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r4_diag_20260705",
+    "arvore_id": 4,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Folhagem densa e verde — aspecto geral positivo. Sem sinais activos de lagarta nas fotos recentes. Clorose leve nas folhas mais expostas ao sol por stress térmico da onda de calor.",
+    "tratamento": "1. Medir pH — objetivo 5.5-6.2. 2. Neem foliar preventivo 5ml/L + sabão 2x/sem. 3. KB Fertilizante Cítricos próxima semana. 4. Monitorizar rebentos para nova infestação de lagarta.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r5_1",
+    "arvore_id": 5,
+    "data": "2026-06-20",
+    "diagnostico": "pH 6.2 — ideal para groselha negra. Clorose Fe+Mg ativa. Necrose marginal das folhas maduras — possível défice K. Vaso sobre betão — calor radicular.",
+    "tratamento": "Pendente: CANNA Mono Hierro + Plagron Supermix + NPK 6-15-12. Elevar vaso do betão.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r5_2",
+    "arvore_id": 5,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r5_3",
+    "arvore_id": 5,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Groselha Negra — pH 6.0 medido após rega. Ideal (range 5.5-6.5).",
+    "tratamento": "Manter. pH em zona óptima para groselha negra.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r5_1783252419760",
+    "arvore_id": 5,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r5_diag_20260705",
+    "arvore_id": 5,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Necrose marginal em várias folhas — stress hídrico durante onda de calor e provável défice K. Vaso sobre betão agrava stress térmico radicular.",
+    "tratamento": "1. Rega de recuperação profunda imediata. 2. Elevar vaso do betão — prioridade urgente. 3. Medir pH — objetivo 5.5-6.5. 4. NPK 6-15-12 quinzenal (componente K para necrose marginal). 5. Plagron Supermix para micronutrientes.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r6_1",
+    "arvore_id": 6,
+    "data": "2026-06-20",
+    "diagnostico": "Estado geral bom. Folhas novas avermelhadas — normal em romãzeira (antocianinas). Substrato seco e arenoso. Clorose leve Fe/N.",
+    "tratamento": "Rega profunda imediata. Húmus líquido Siro + CANNA Mono Hierro 2ml/L. NPK 6-15-12 quinzenal.",
+    "urgencia": "baixo",
+    "fotos": "[]"
+  },
+  {
+    "id": "r6_2",
+    "arvore_id": 6,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso.",
+    "urgencia": "baixo",
+    "fotos": "[]"
+  },
+  {
+    "id": "r6_3",
+    "arvore_id": 6,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Romãzeira — pH 6.0 medido após rega. Adequado (range 6.0-7.0).",
+    "tratamento": "Manter.",
+    "urgencia": "baixo",
+    "fotos": "[]"
+  },
+  {
+    "id": "r6_1783252472702",
+    "arvore_id": 6,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r6_diag_20260705",
+    "arvore_id": 6,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Estado geral bom — romãzeira é a mais tolerante ao calor do conjunto. Folhas novas avermelhadas — normal (antocianinas). Sem sinais de praga ou doença fúngica. Substrato seco nas fotos.",
+    "tratamento": "1. Rega de recuperação profunda amanhã cedo. 2. Húmus líquido Siro na próxima rega. 3. Medir pH — objetivo 6.0-7.0. 4. Monitorização mensal suficiente.",
+    "urgencia": "baixo",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_1",
+    "arvore_id": 7,
+    "data": "2026-06-20",
+    "diagnostico": "pH 6.5. Lesmas ativas confirmadas — buracos irregulares nas folhas. Figos em formação visíveis. Clorose Fe moderada. Manchas fúngicas incipientes.",
+    "tratamento": "URGENTE: Ferramol ao redor do vaso hoje. Fita de cobre no vaso. Neem foliar 5ml/L. CANNA Mono Hierro.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_2",
+    "arvore_id": 7,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_3",
+    "arvore_id": 7,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Figueira — pH 6.0 medido após rega. Zona correcta (range 6.0-6.5).",
+    "tratamento": "Manter pH. Prioridade: tratamento lesmas (Ferramol) ainda pendente.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_1783252552581",
+    "arvore_id": 7,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_diag_20260705",
+    "arvore_id": 7,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Figos em desenvolvimento visíveis — árvore em fase produtiva activa. Manchas foliares necróticas irregulares — queimadura solar e dano fúngico residual. Sem sinais activos de lesmas. Stress hídrico pode provocar queda prematura de figos.",
+    "tratamento": "1. Rega de recuperação profunda amanhã cedo — proteger figos. 2. Verificar queda de figos nos próximos dias. 3. Manter Compo Bio Anti-Limas ao redor do vaso. 4. Neem foliar preventivo 5ml/L.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_1783554380769",
+    "arvore_id": 7,
+    "data": "2026-07-08",
+    "diagnostico": "Mudança de vaso",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r7_1783592570936",
+    "arvore_id": 7,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0-7.5. Vaso novo.\n38cm diâmetro × 35cm altura (sem grande afunilamento) ≈ ~40L",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_1",
+    "arvore_id": 8,
+    "data": "2026-06-20",
+    "diagnostico": "pH 6.5 — CRÍTICO para castanheiro calcífugo (necessita 5.0-6.0). Mineiro foliar ativo (Phyllonorycter sp.) — galerias e exúvias visíveis. Clorose Fe severa por bloqueio de pH.",
+    "tratamento": "1º: Acidificação urgente — ácido cítrico 2g/L 3×/sem por 3 semanas. 2º: Drench neem 15ml/L + sabão 2-3ml/L, 500-750ml, 7em7 dias × 3. 3º: Ferroflower só após pH < 6.2. Repotagem 50-60L no outono.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_2",
+    "arvore_id": 8,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso. Nota: Ferroflower só eficaz quando pH do substrato baixar de 6.2 — monitorizar.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_3",
+    "arvore_id": 8,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Castanheiro — pH 6.0 medido após rega. Descida desde 6.5 — progresso positivo, mas ainda acima do ideal (5.0-6.0). Limite superior.",
+    "tratamento": "Continuar acidificação — ácido cítrico 2g/L 3×/sem. pH 6.0 é o limite máximo tolerável para esta espécie calcífuga.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_1783252597332",
+    "arvore_id": 8,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_1783252597510",
+    "arvore_id": 8,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_diag_20260705",
+    "arvore_id": 8,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07 CRÍTICO: Mineiro foliar (Phyllonorycter sp.) em progressão acelerada — múltiplas galerias por folha, algumas com tecido colapsado. Clorose severa por pH 6.5 a bloquear Fe. Enrolamento nos rebentos jovens. Pior estado do conjunto.",
+    "tratamento": "PRIORIDADE MÁXIMA — por ordem: 1. Drench neem sistémico HOJE: 15ml/L + sabão 2-3ml/L, 750ml ao solo (único método eficaz contra galerias). 2. Acidificação 3 dias consecutivos: ácido cítrico 2g/L. 3. Ferroflower APENAS após pH menor que 6.0. 4. Sombreamento 30-50% se calor persistir. 5. Repetir drench neem em 7 dias.",
+    "urgencia": "critico",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_1",
+    "arvore_id": 9,
+    "data": "2026-06-20",
+    "diagnostico": "pH 7.0 — CRÍTICO (pior valor do conjunto). Cancro/necrose basal no caule — inspecionar urgentemente extensão. Crivado fúngico ativo. Clorose Fe severa. Caule morto suspeito à base.",
+    "tratamento": "EMERGÊNCIA: Inspeção física da base do caule hoje. Acidificação ácido cítrico 2g/L 3×/sem. Calda bordalesa foliar. Ferroflower só após pH ≤ 6.5. NÃO fertilizar até pH corrigido.",
+    "urgencia": "critico",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_2",
+    "arvore_id": 9,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso. ATENÇÃO: Ferroflower ainda prematuro — pH substrato 7.0. Continuar acidificação prioritária.",
+    "urgencia": "critico",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_3",
+    "arvore_id": 9,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.5. Cerejeira Burjat — pH 6.5 medido após rega. Descida desde 7.0 — melhoria significativa numa sessão. Cancro basal ainda por inspecionar.",
+    "tratamento": "Continuar acidificação. pH 6.5 ainda alto mas já fora da zona crítica 7.0. Ferroflower ainda prematuro — aguardar pH ≤ 6.2.",
+    "urgencia": "critico",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_1783252680399",
+    "arvore_id": 9,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_diag_20260705",
+    "arvore_id": 9,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07 CRÍTICO: Cancro basal mantém-se — inspecionar extensão. Crivado fúngico presente nas folhas. Clorose Fe por pH alto. Sem calda bordalesa disponível — progressão fúngica difícil de controlar.",
+    "tratamento": "1. Inspecção física base do caule — fotografar e registar extensão. 2. Acidificação: ácido cítrico 2g/L 3x/sem. 3. Neem foliar 5ml/L + sabão como supressivo fúngico alternativo. 4. Ferroflower só após pH igual ou menor que 6.2. 5. NÃO fertilizar até pH corrigido.",
+    "urgencia": "critico",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_1783592648303",
+    "arvore_id": 9,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0-7.3. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r10_1",
+    "arvore_id": 10,
+    "data": "2026-06-20",
+    "diagnostico": "pH 6.5. Pulgões Myzus cerasi confirmados — pontos amarelos nos pecíolos e rebentos enrolados. Cola entomológica necessária para bloquear formigas. Crivado incipiente.",
+    "tratamento": "URGENTE: Remoção manual dos ápices enrolados. Cola entomológica no caule (sobre cardboard). Neem 5ml/L + sabão potássico foliar. Calda bordalesa após ciclo neem.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r10_2",
+    "arvore_id": 10,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm) — ajuda a bloquear formigas que protegem pulgões. Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r10_3",
+    "arvore_id": 10,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.5. Cerejeira Branca — pH 6.5 medido após rega. Pulgões activos, J-stem presente.",
+    "tratamento": "Continuar rega pH 5.0. Tratamento pulgões pendente: cola entomológica + neem foliar.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r10_1783252922245",
+    "arvore_id": 10,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r10_diag_20260705",
+    "arvore_id": 10,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Pulgões aparentemente estabilizados — monitorizar. Crivado fúngico incipiente visível. Cola entomológica deve estar activa. Stress foliar moderado pós-onda de calor.",
+    "tratamento": "1. Verificar e renovar cola entomológica se necessário. 2. Inspecção de pulgões nos ápices — remover manualmente se reencontrados. 3. Neem foliar 5ml/L + sabão 2x/sem. 4. Medir pH — objetivo menor que 6.5.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r10_1783592661938",
+    "arvore_id": 10,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0-7.3. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_1",
+    "arvore_id": 11,
+    "data": "2026-06-20",
+    "diagnostico": "Pereira Duo — pH 6.5. Ramo A: folhas ovais largas (tipo Rocha/Williams). Ramo B: folhas estreitas (tipo Conference). Mancha necrótica grande a vigiar. Clorose Fe leve.",
+    "tratamento": "Vigiar mancha — calda bordalesa se se multiplicar. CANNA Mono Hierro 2ml/L. Ferramol.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_2",
+    "arvore_id": 11,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_3",
+    "arvore_id": 11,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Pereira Duo — pH 6.0 medido após rega. Zona correcta (range 6.0-7.0).",
+    "tratamento": "Manter.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_1783252986338",
+    "arvore_id": 11,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_diag_20260705",
+    "arvore_id": 11,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Dois cultivares claramente distintos (tipo Rocha e tipo Conference). Manchas foliares necróticas — mix de stress hídrico onda de calor e progressão fúngica. Sem frutos visíveis.",
+    "tratamento": "1. Rega de recuperação profunda. 2. Medir pH — objetivo 6.0-7.0. 3. Neem foliar preventivo 5ml/L. 4. Monitorizar manchas semanalmente.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_1783592702425",
+    "arvore_id": 11,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r12_1",
+    "arvore_id": 12,
+    "data": "2026-06-20",
+    "diagnostico": "Macieira Duo — pH 6.5. Mineiro foliar ativo (galeria visível). Possível oídio — verificar rebentos brancos (teste do dedo). Pontos amarelos — suspeita ácaro inicial.",
+    "tratamento": "Drench neem 15ml/L sistémico para mineiro. Bicarbonato 5g/L se oídio confirmado. Neem foliar face inferior.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r12_2",
+    "arvore_id": 12,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r12_3",
+    "arvore_id": 12,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Macieira Duo — pH 6.0 medido após rega. Zona correcta.",
+    "tratamento": "Manter pH. Prioridade: confirmar oídio (teste dedo nos rebentos brancos) e tratar mineiro foliar com drench neem.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r12_1783253103641",
+    "arvore_id": 12,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r12_diag_20260705",
+    "arvore_id": 12,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Mineiro foliar activo — galerias visíveis. Oídio a confirmar nos rebentos novos (teste do dedo). Stress térmico da onda de calor sobreposto às pragas existentes.",
+    "tratamento": "1. Drench neem sistémico: 15ml/L + sabão 2-3ml/L, 500ml ao solo — tratar mineiro. 2. Verificar rebentos para oídio: teste do dedo — se pó branco, bicarbonato 5g/L. 3. Medir pH. 4. Rega de recuperação pós-calor.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r12_1783592715692",
+    "arvore_id": 12,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_1",
+    "arvore_id": 13,
+    "data": "2026-06-20",
+    "diagnostico": "Ameixeira Duo — pH 6.5. Gorgulho adulto confirmado visualmente. Buracos geométricos perfeitos nas folhas (assinatura de gorgulho). Larvas no substrato suspeitas. Mancha necrótica escura. Substrato seco.",
+    "tratamento": "URGENTE: Inspeção nocturna com lanterna. Steinernema kraussei (nematodes) em rega. Rega profunda imediata. Calda bordalesa foliar.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_2",
+    "arvore_id": 13,
+    "data": "2026-06-21",
+    "diagnostico": "Tratamento preventivo geral aplicado.",
+    "tratamento": "✅ Fio neem puro à volta do caule (5-10cm). Flower Ferroflower na água de rega. pH água: 5.0. Rega até saturação do substrato, sem drenar — intencional para reter Ferroflower no vaso. Nota: Larvanem HB (Heterorhabditis bacteriophora) em processo de encomenda para tratar larvas de gorgulho no substrato.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_3",
+    "arvore_id": 13,
+    "data": "2026-06-21",
+    "diagnostico": "pH medido após rega: 6.0. Ameixeira Duo — pH 6.0 medido após rega. Zona correcta.",
+    "tratamento": "Manter pH. Prioridade: Larvanem HB para larvas de gorgulho — em encomenda.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_1783253237729",
+    "arvore_id": 13,
+    "data": "2026-07-05",
+    "diagnostico": "pH medido: 6.5. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_diag_20260705",
+    "arvore_id": 13,
+    "data": "2026-07-05",
+    "diagnostico": "Diagnóstico 05/07: Buracos geométricos de gorgulho ainda presentes mas aparentemente menos intensos. Confirmar aplicação Larvanem HB. Mancha necrótica escura no caule a monitorizar. Stress hídrico moderado pós-calor.",
+    "tratamento": "1. Confirmar aplicação Larvanem HB — se não aplicado, URGENTE em rega ao solo (época óptima agora). 2. Inspecção nocturna com lanterna — apanhar gorgulhos adultos. 3. Rega de recuperação profunda. 4. Fotografar mancha necrótica semanalmente.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_1783592728803",
+    "arvore_id": 13,
+    "data": "2026-07-09",
+    "diagnostico": "pH medido: 7.0. ",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  }
+]
