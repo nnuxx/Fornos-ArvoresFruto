@@ -3,7 +3,7 @@ name: Sync D1 to GitHub
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'  # auto-sync every 6 hours
+    - cron: '0 */6 * * *'
 
 jobs:
   sync:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Install Wrangler
         run: npm install -g wrangler@4
@@ -26,9 +26,8 @@ jobs:
           wrangler d1 execute db_fornos-arvores-fruto --remote --yes --json \
             --command="SELECT * FROM registos ORDER BY arvore_id, data ASC" \
             > /tmp/raw.json
-          # Extract results array and save
           python3 -c "
-          import json, sys
+          import json
           raw = json.load(open('/tmp/raw.json'))
           results = raw[0]['results'] if isinstance(raw, list) else raw.get('results', [])
           json.dump(results, open('_cache/registos.json', 'w'), ensure_ascii=False, indent=2)
