@@ -21,7 +21,4 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: |
           echo "${{ github.event.inputs.sql }}" > /tmp/payload.sql
-          wrangler d1 execute db_fornos-arvores-fruto \
-            --database-id=${{ secrets.D1_DATABASE_ID }} \
-            --remote \
-            --file=/tmp/payload.sql
+          wrangler d1 execute db_fornos-arvores-fruto --remote --yes --file=/tmp/payload.sql
