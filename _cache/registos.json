@@ -81,6 +81,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r1_ph_20260709",
+    "arvore_id": 1,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0 medido. Vaso novo 40L (Naturen 50%+Lusoruniversal 20%+Humus minhoca 12%+NutrEasy 12%+Fibra coco+Vermiculite). pH esperado: substrato fresco neutro/alcalino + rega pH 8.0 protocolo onda calor. Nao e alarme.",
+    "tratamento": "Retomar rega acido citrico 2g/L amanha pH 5.0-5.5. Re-medir em 7 dias. Ferroflower so apos pH < 6.5. Monitorizar Wilsonomyces.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
     "id": "r2_1",
     "arvore_id": 2,
     "data": "2026-06-20",
@@ -135,6 +144,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r2_ph_20260709",
+    "arvore_id": 2,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0 medido. Esperado apos protocolo onda calor (rega pH 8.0). Substrato estava em 5.5-6.0 antes.",
+    "tratamento": "Retomar rega acido citrico 2g/L amanha. Re-medir em 7 dias. Ferroflower apos pH < 6.5. KB Citricos 2a aplicacao em Julho/Agosto.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r3_1",
     "arvore_id": 3,
     "data": "2026-06-20",
@@ -185,6 +203,15 @@
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
     "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r3_ph_20260709",
+    "arvore_id": 3,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0 medido. Subida desde 6.5 pre-onda calor, agravada por rega pH 8.0 protocolo arrefecimento.",
+    "tratamento": "Retomar rega acido citrico 2g/L amanha, manter pH 5.0-5.5. Re-medir em 7 dias. Ferroflower apos pH < 6.5.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -387,6 +414,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r7_ph_20260709",
+    "arvore_id": 7,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0-7.5 medido. Vaso novo 40L (Naturen 55%+Lusoruniversal 25%+Humus minhoca 10%+NutrEasy 5%+Fibra coco+Vermiculite). pH esperado: substrato fresco + protocolo onda calor. Figos em desenvolvimento - stress pos-repotagem e maior ameaca.",
+    "tratamento": "Rega cuidadosa pos-repotagem: raizes ainda a estabelecer. Iniciar acido citrico 2g/L amanha com volume moderado. Re-medir em 7 dias. Verificar queda de figos. Manter Compo Bio Anti-Limas.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
     "id": "r8_1",
     "arvore_id": 8,
     "data": "2026-06-20",
@@ -495,6 +531,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r9_ph_20260709",
+    "arvore_id": 9,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0-7.3 medido. CRITICO: substrato ja estava em pH 7.0+ antes da onda de calor. Rega pH 8.0 agravou. Cancro basal activo. Crivado fungico presente. Ferroflower bloqueado.",
+    "tratamento": "PRIORITARIO: acidificacao imediata acido citrico 2g/L 3x/semana. Inspecao base do caule - fotografar cancro. Neem foliar 5ml/L + sabao. Ferroflower APENAS apos pH <= 6.2. NAO fertilizar.",
+    "urgencia": "critico",
+    "fotos": "[]"
+  },
+  {
     "id": "r10_1",
     "arvore_id": 10,
     "data": "2026-06-20",
@@ -549,6 +594,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r10_ph_20260709",
+    "arvore_id": 10,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0-7.3 medido. Subida pelo protocolo onda calor. Substrato estava em 6.5 antes. Pulgoes - monitorizar.",
+    "tratamento": "Retomar rega acido citrico 2g/L amanha. Verificar e renovar cola entomologica. Inspeccao apices para pulgoes. Re-medir em 7 dias.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
     "id": "r11_1",
     "arvore_id": 11,
     "data": "2026-06-20",
@@ -599,6 +653,15 @@
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
     "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_ph_20260709",
+    "arvore_id": 11,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0 medido. Valor esperado pos protocolo onda calor.",
+    "tratamento": "Retomar rega acido citrico 2g/L. Re-medir em 7 dias. Neem foliar preventivo 5ml/L.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -657,6 +720,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r12_ph_20260709",
+    "arvore_id": 12,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0 medido. Valor esperado pos protocolo onda calor. Mineiro foliar activo em 05/07.",
+    "tratamento": "Retomar rega acido citrico 2g/L. Drench neem sistémico se nao feito: 15ml/L + sabao 500ml ao solo. Re-medir pH em 7 dias.",
+    "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
     "id": "r13_1",
     "arvore_id": 13,
     "data": "2026-06-20",
@@ -708,6 +780,15 @@
     "diagnostico": "pH medido: 7.0. ",
     "tratamento": "⏳ Aguarda diagnóstico do Claude.",
     "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_ph_20260709",
+    "arvore_id": 13,
+    "data": "2026-07-09",
+    "diagnostico": "pH 7.0 medido. Valor esperado pos protocolo onda calor. Gorgulho adulto activo. Larvanem HB - confirmar aplicacao.",
+    "tratamento": "Retomar rega acido citrico 2g/L. Confirmar aplicacao Larvanem HB ao solo. Inspeccao nocturna com lanterna. Re-medir pH em 7 dias.",
+    "urgencia": "urgente",
     "fotos": "[]"
   }
 ]
