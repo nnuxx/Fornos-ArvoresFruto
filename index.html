@@ -377,11 +377,24 @@ function getRegistos(arvoreId) {
   return (_registosCache[arvoreId] || []).sort((a,b) => a.data > b.data ? 1 : -1);
 }
 
+function isObservacao(reg) {
+  // Observações simples: só pH ou nota sem diagnóstico real
+  // Identificadas por tratamento pendente ou diagnóstico apenas com pH
+  const trat = (reg.tratamento || '').trim();
+  const diag = (reg.diagnostico || '').trim();
+  return trat === '⏳ Aguarda diagnóstico do Claude.' ||
+         (diag.startsWith('pH medido:') && trat.startsWith('Retomar'));
+}
+
 function getUrgencia(arvoreId) {
   const regs = getRegistos(arvoreId);
   if (!regs.length) return 'baixo';
-  const last = regs[regs.length - 1];
-  return last.urgencia || 'medio';
+  // Find last real diagnosis (not a simple observation)
+  for (let i = regs.length - 1; i >= 0; i--) {
+    if (!isObservacao(regs[i])) return regs[i].urgencia || 'medio';
+  }
+  // All records are observations — use last one
+  return regs[regs.length - 1].urgencia || 'medio';
 }
 
 // ═══════════════════════════════════════════
@@ -1077,3 +1090,4 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
