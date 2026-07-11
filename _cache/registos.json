@@ -40,7 +40,7 @@
     "arvore_id": 1,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5-7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07: crivado fúngico em progressão, necrose marginal por onda de calor. Retomar acidificação com ácido cítrico 2g/L após protocolo onda de calor.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -58,7 +58,7 @@
     "arvore_id": 1,
     "data": "2026-07-08",
     "diagnostico": "Mudança de vaso.",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Repotagem concluída: vaso 40L (38cm × 35cm). Substrato: Naturen 50% + Lusoruniversal 20% + Húmus minhoca 12% + NutrEasy 12% + Fibra coco + Vermiculite 130g. Sem quelato nem húmus líquido no substrato seco.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -67,7 +67,7 @@
     "arvore_id": 1,
     "data": "2026-07-08",
     "diagnostico": "Mudança de vaso.",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Registo duplicado da mudança de vaso — ver registo anterior do mesmo dia.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -76,7 +76,7 @@
     "arvore_id": 1,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. Vaso novo.\n38cm diâmetro × 35cm altura (sem grande afunilamento) ≈ ~40L",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0 esperado: substrato fresco neutro + protocolo onda calor (rega pH 8.0). Retomar acidificação com ácido cítrico 2g/L a partir de amanhã. Re-medir em 7 dias. Ver diagnóstico completo de 09/07.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -121,7 +121,7 @@
     "arvore_id": 2,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — re-acidificar com ácido cítrico 2g/L. Retomar Ferroflower após pH < 6.5.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -139,7 +139,7 @@
     "arvore_id": 2,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0 esperado após protocolo onda calor. Retomar acidificação amanhã. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -184,7 +184,7 @@
     "arvore_id": 3,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — retomar acidificação com ácido cítrico 2g/L.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -202,7 +202,7 @@
     "arvore_id": 3,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0 esperado após protocolo onda calor. Retomar acidificação amanhã. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -247,7 +247,7 @@
     "arvore_id": 4,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5-7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5-7.0 — retomar acidificação. Neem foliar preventivo 5ml/L + sabão.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -292,7 +292,7 @@
     "arvore_id": 5,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — zona correcta para groselha (5.5-6.5). Elevar vaso do betão. NPK 6-15-12 quinzenal.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -337,7 +337,7 @@
     "arvore_id": 6,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — aceitável para romãzeira (6.0-7.0). Estado geral bom.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -382,7 +382,7 @@
     "arvore_id": 7,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — retomar acidificação. Figos em desenvolvimento — rega cuidadosa.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -400,7 +400,7 @@
     "arvore_id": 7,
     "data": "2026-07-08",
     "diagnostico": "Mudança de vaso",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Repotagem concluída: vaso 40L (38cm × 35cm). Substrato: Naturen 55% + Lusoruniversal 25% + Húmus minhoca 10% + NutrEasy 5% + Fibra coco + Vermiculite 130g.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -409,7 +409,7 @@
     "arvore_id": 7,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0-7.5. Vaso novo.\n38cm diâmetro × 35cm altura (sem grande afunilamento) ≈ ~40L",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0-7.5 esperado: substrato fresco neutro + protocolo onda calor. Rega moderada pós-repotagem. Retomar acidificação amanhã. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -454,7 +454,7 @@
     "arvore_id": 8,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07 CRÍTICO. pH 6.5 — acima do limite para castanheiro calcífugo (max 6.0). Drench neem sistémico urgente. Acidificação 3x/semana.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -463,7 +463,7 @@
     "arvore_id": 8,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Registo duplicado — ver registo anterior do mesmo dia.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -508,7 +508,7 @@
     "arvore_id": 9,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07 CRÍTICO. pH 6.5 — continua alto. Acidificação 3x/semana urgente. Inspecção cancro basal. Sem fertilização.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -526,7 +526,7 @@
     "arvore_id": 9,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0-7.3. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0-7.3 após protocolo onda calor — agrava situação já crítica. Retomar acidificação imediata com ácido cítrico 2g/L 3x/semana. Ver diagnóstico completo de 09/07.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -571,7 +571,7 @@
     "arvore_id": 10,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — retomar acidificação. Verificar cola entomológica e pulgões.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -589,7 +589,7 @@
     "arvore_id": 10,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0-7.3. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0-7.3 após protocolo onda calor. Retomar acidificação amanhã. Verificar cola entomológica. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -634,7 +634,7 @@
     "arvore_id": 11,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — zona correcta. Neem foliar preventivo 5ml/L.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -652,7 +652,7 @@
     "arvore_id": 11,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0 após protocolo onda calor. Retomar acidificação amanhã. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -697,7 +697,7 @@
     "arvore_id": 12,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — retomar acidificação. Drench neem para mineiro foliar.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -715,7 +715,7 @@
     "arvore_id": 12,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0 após protocolo onda calor. Retomar acidificação amanhã. Drench neem se ainda não feito. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -760,7 +760,7 @@
     "arvore_id": 13,
     "data": "2026-07-05",
     "diagnostico": "pH medido: 6.5. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "Ver diagnóstico completo de 05/07. pH 6.5 — retomar acidificação. Confirmar aplicação Larvanem HB. Inspecção nocturna gorgulho.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -778,7 +778,7 @@
     "arvore_id": 13,
     "data": "2026-07-09",
     "diagnostico": "pH medido: 7.0. ",
-    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "tratamento": "pH 7.0 após protocolo onda calor. Retomar acidificação amanhã. Confirmar Larvanem HB ao solo. Re-medir em 7 dias.",
     "urgencia": "medio",
     "fotos": "[]"
   },
