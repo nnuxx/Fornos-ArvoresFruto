@@ -378,12 +378,16 @@ function getRegistos(arvoreId) {
 }
 
 function isObservacao(reg) {
-  // Observações simples: só pH ou nota sem diagnóstico real
-  // Identificadas por tratamento pendente ou diagnóstico apenas com pH
-  const trat = (reg.tratamento || '').trim();
-  const diag = (reg.diagnostico || '').trim();
-  return trat === '⏳ Aguarda diagnóstico do Claude.' ||
-         (diag.startsWith('pH medido:') && trat.startsWith('Retomar'));
+  // Observações simples identificadas pelo conteúdo do diagnóstico
+  // Registos reais de diagnóstico têm conteúdo clínico extenso
+  const diag = (reg.diagnostico || '').trim().toLowerCase();
+  return diag.startsWith('ph medido:') ||
+         diag.startsWith('ph medido ') ||
+         diag === 'mudança de vaso.' ||
+         diag === 'mudança de vaso' ||
+         diag.startsWith('mudança de vaso') ||
+         diag.startsWith('registo duplicado') ||
+         (reg.tratamento || '').trim() === '⏳ Aguarda diagnóstico do Claude.';
 }
 
 function getUrgencia(arvoreId) {
@@ -1090,4 +1094,5 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
 
