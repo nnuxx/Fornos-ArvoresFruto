@@ -9,18 +9,7 @@
   },
   "p04": {
     "estado": "transito",
-    "historico": [
-      {
-        "data": "2026-06-24",
-        "tipo": "encomendado",
-        "nota": "500g x2"
-      },
-      {
-        "data": "2026-06-24",
-        "tipo": "encomendado",
-        "nota": ""
-      }
-    ]
+    "historico": []
   },
   "p05": {
     "estado": "disponivel",
@@ -89,7 +78,7 @@
     "historico": []
   },
   "p16": {
-    "estado": "disponivel",
+    "estado": "por_comprar",
     "historico": []
   },
   "p17": {
@@ -131,5 +120,21 @@
         "nota": "Substituído por KB Citrinos"
       }
     ]
+  },
+  "p21": {
+    "estado": "por_comprar",
+    "historico": []
+  },
+  "p22": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p23": {
+    "estado": "disponivel",
+    "historico": []
+  },
+  "p24": {
+    "estado": "disponivel",
+    "historico": []
   }
 }
