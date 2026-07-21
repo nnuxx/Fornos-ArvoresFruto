@@ -108,6 +108,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r1_ph_20260721",
+    "arvore_id": 1,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r2_1",
     "arvore_id": 2,
     "data": "2026-06-20",
@@ -185,6 +194,15 @@
     "data": "2026-07-20",
     "diagnostico": "Rega com água acidificada pH 5.6 (ácido cítrico). Todas as árvores com pH substrato 7.0 pós-onda de calor.",
     "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias. Ferroflower na próxima rega após pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_ph_20260721",
+    "arvore_id": 2,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -270,6 +288,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r3_ph_20260721",
+    "arvore_id": 3,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r4_1",
     "arvore_id": 4,
     "data": "2026-06-20",
@@ -329,6 +356,15 @@
     "data": "2026-07-20",
     "diagnostico": "Rega com água acidificada pH 5.6 (ácido cítrico). Todas as árvores com pH substrato 7.0 pós-onda de calor.",
     "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias. Ferroflower na próxima rega após pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r4_ph_20260721",
+    "arvore_id": 4,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -396,6 +432,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r5_ph_20260721",
+    "arvore_id": 5,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r6_1",
     "arvore_id": 6,
     "data": "2026-06-20",
@@ -455,6 +500,15 @@
     "data": "2026-07-20",
     "diagnostico": "Rega com água acidificada pH 5.6 (ácido cítrico). Todas as árvores com pH substrato 7.0 pós-onda de calor.",
     "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias. Ferroflower na próxima rega após pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r6_ph_20260721",
+    "arvore_id": 6,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -549,6 +603,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r7_ph_20260721",
+    "arvore_id": 7,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r8_1",
     "arvore_id": 8,
     "data": "2026-06-20",
@@ -618,6 +681,15 @@
     "diagnostico": "Drench neem sistémico aplicado: 15ml/L neem Fertibono + 2-3ml/L sabão potássico, 750ml ao solo. Tratamento mineiro foliar (Castanheiro, Macieira) e gorgulho (Ameixeira). Pereira: stress hídrico pós onda calor + clorose Fe + necrose apical severa visível.",
     "tratamento": "Repetir em 7 dias. Não regar mais hoje — deixar absorver. Amanhã cedo: rega leve com ácido cítrico pH 5.5-6.0 + Ferroflower.",
     "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r8_ph_20260721",
+    "arvore_id": 8,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
     "fotos": "[]"
   },
   {
@@ -698,6 +770,15 @@
     "data": "2026-07-20",
     "diagnostico": "Rega com água acidificada pH 5.6 (ácido cítrico). Todas as árvores com pH substrato 7.0 pós-onda de calor.",
     "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias. Ferroflower na próxima rega após pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r9_ph_20260721",
+    "arvore_id": 9,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
     "urgencia": "medio",
     "fotos": "[]"
   },
@@ -783,6 +864,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r10_ph_20260721",
+    "arvore_id": 10,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r11_1",
     "arvore_id": 11,
     "data": "2026-06-20",
@@ -861,6 +951,15 @@
     "diagnostico": "Drench neem sistémico aplicado: 15ml/L neem Fertibono + 2-3ml/L sabão potássico, 750ml ao solo. Tratamento mineiro foliar (Castanheiro, Macieira) e gorgulho (Ameixeira). Pereira: stress hídrico pós onda calor + clorose Fe + necrose apical severa visível.",
     "tratamento": "Repetir em 7 dias. Não regar mais hoje — deixar absorver. Amanhã cedo: rega leve com ácido cítrico pH 5.5-6.0 + Ferroflower.",
     "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r11_ph_20260721",
+    "arvore_id": 11,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
     "fotos": "[]"
   },
   {
@@ -945,6 +1044,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r12_ph_20260721",
+    "arvore_id": 12,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r13_1",
     "arvore_id": 13,
     "data": "2026-06-20",
@@ -1023,6 +1131,15 @@
     "diagnostico": "Drench neem sistémico aplicado: 15ml/L neem Fertibono + 2-3ml/L sabão potássico, 750ml ao solo. Tratamento mineiro foliar (Castanheiro, Macieira) e gorgulho (Ameixeira). Pereira: stress hídrico pós onda calor + clorose Fe + necrose apical severa visível.",
     "tratamento": "Repetir em 7 dias. Não regar mais hoje — deixar absorver. Amanhã cedo: rega leve com ácido cítrico pH 5.5-6.0 + Ferroflower.",
     "urgencia": "urgente",
+    "fotos": "[]"
+  },
+  {
+    "id": "r13_ph_20260721",
+    "arvore_id": 13,
+    "data": "2026-07-21",
+    "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
+    "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
     "fotos": "[]"
   }
 ]
