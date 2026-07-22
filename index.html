@@ -442,8 +442,8 @@ async function carregarStock() {
 
 function getProdutos() {
   return PRODUTOS_BASE.map(p => {
-    const s = _stockCache[p.id] || {estado:'disponivel', historico:[]};
-    return {...p, estado:s.estado, disponivel:s.estado==='disponivel', historico:s.historico||[]};
+    const s = _stockCache[p.id] || {estado:'disponivel', historico:[], quantidade_litros:0};
+    return {...p, estado:s.estado, disponivel:s.estado==='disponivel', quantidade_litros:s.quantidade_litros||0, historico:s.historico||[]};
   });
 }
 
