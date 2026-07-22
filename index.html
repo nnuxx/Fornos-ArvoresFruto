@@ -852,7 +852,11 @@ function renderStock() {
           ${p.foto?`<img src="${p.foto}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">`:``}
           <div class="prod-info">
             <div class="prod-nome">${p.nome}</div>
-            <div class="prod-det">${p.qtd||''}${p.link?` · <a class="link-compra" href="${p.link}" target="_blank" onclick="event.stopPropagation()">🛒 Comprar</a>`:''}</div>
+            <div class="prod-det">
+            ${p.cat === 'Substrato' ? `<span style="font-weight:600;color:var(--verde-m)">${p.quantidade_litros}L</span> · ` : (p.qtd||'')}
+            ${p.link?`<a class="link-compra" href="${p.link}" target="_blank" onclick="event.stopPropagation()">🛒 Comprar</a>`:''}
+            ${p.cat === 'Substrato' ? `<button onclick="event.stopPropagation();editarQuantidade('${p.id}',${p.quantidade_litros})" style="background:none;border:none;color:var(--cinza);font-size:11px;cursor:pointer;padding:0 4px">✏️</button>` : ''}
+          </div>
           </div>
           <div class="prod-acoes" onclick="event.stopPropagation()">
             <select class="estado-select" onchange="setEstado('${p.id}',this.value)" style="font-size:11px;border:1.5px solid #E5E7EB;border-radius:8px;padding:4px 6px;font-family:'DM Sans',sans-serif;color:var(--verde);background:#fff;cursor:pointer">
@@ -1098,6 +1102,7 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
 
 
 
