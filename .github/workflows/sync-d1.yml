@@ -48,7 +48,7 @@ jobs:
           results = raw[0]['results'] if isinstance(raw, list) else raw.get('results', [])
           out = {}
           for r in results:
-              out[r['pid']] = {'estado': r['estado'], 'historico': json.loads(r['historico'] or '[]')}
+              out[r['pid']] = {'estado': r['estado'], 'historico': json.loads(r['historico'] or '[]'), 'quantidade_litros': r.get('quantidade_litros', 0) or 0}
           json.dump(out, open('_cache/stock.json', 'w'), ensure_ascii=False, indent=2)
           print(f'Exported {len(results)} stock items')
           "
