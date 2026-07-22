@@ -276,6 +276,22 @@ input[type="file"]{display:none;}
   </div>
 </div>
 
+<!-- Modal quantidade substrato -->
+<div class="overlay" id="modalQtyOverlay">
+  <div class="modal">
+    <div class="modal-title" id="qtyTitle">Quantidade em stock</div>
+    <input type="hidden" id="qtyPid">
+    <div class="fgrp">
+      <label class="flabel">Litros disponíveis</label>
+      <input type="number" class="finput" id="qtyValor" min="0" step="0.5" placeholder="Ex: 20">
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="document.getElementById('modalQtyOverlay').classList.remove('open')">Cancelar</button>
+      <button class="btn-save" onclick="guardarQuantidade()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lb" onclick="fecharLb()">
   <button class="lb-close">✕</button>
   <img id="lbImg" src="" alt="">
@@ -1102,6 +1118,7 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
 
 
 
