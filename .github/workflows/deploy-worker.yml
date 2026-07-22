@@ -1,0 +1,34 @@
+name: Deploy Worker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Wrangler
+        run: npm install -g wrangler@4
+
+      - name: Create wrangler.toml
+        run: |
+          cat > wrangler.toml << 'EOF'
+          name = "fornos-api"
+          main = "worker/index.js"
+          compatibility_date = "2024-01-01"
+          account_id = "${{ secrets.CF_ACCOUNT_ID }}"
+
+          [[d1_databases]]
+          binding = "DB"
+          database_name = "db_fornos-arvores-fruto"
+          database_id = "${{ secrets.D1_DATABASE_ID }}"
+          EOF
+
+      - name: Deploy Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: wrangler deploy
