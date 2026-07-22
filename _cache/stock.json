@@ -1,35 +1,43 @@
 {
   "p02": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p03": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p04": {
     "estado": "transito",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p05": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p06": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p07": {
     "estado": "por_comprar",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p08": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p09": {
     "estado": "por_comprar",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p10": {
     "estado": "disponivel",
@@ -44,15 +52,18 @@
         "tipo": "outro",
         "nota": "Em trânsito, entrega prevista hoje"
       }
-    ]
+    ],
+    "quantidade_litros": 0
   },
   "p11": {
     "estado": "por_comprar",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p12": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p13": {
     "estado": "disponivel",
@@ -67,19 +78,23 @@
         "tipo": "chegou",
         "nota": ""
       }
-    ]
+    ],
+    "quantidade_litros": 0
   },
   "p14": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p15": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p16": {
     "estado": "por_comprar",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p17": {
     "estado": "disponivel",
@@ -89,7 +104,8 @@
         "tipo": "chegou",
         "nota": "Larvanem HB 50M"
       }
-    ]
+    ],
+    "quantidade_litros": 0
   },
   "p18": {
     "estado": "disponivel",
@@ -99,7 +115,8 @@
         "tipo": "encomendado",
         "nota": ""
       }
-    ]
+    ],
+    "quantidade_litros": 0
   },
   "p19": {
     "estado": "disponivel",
@@ -109,7 +126,8 @@
         "tipo": "outro",
         "nota": "1ª aplicação citrinos"
       }
-    ]
+    ],
+    "quantidade_litros": 0
   },
   "p20": {
     "estado": "por_comprar",
@@ -119,22 +137,27 @@
         "tipo": "esgotou",
         "nota": "Substituído por KB Citrinos"
       }
-    ]
+    ],
+    "quantidade_litros": 0
   },
   "p21": {
     "estado": "por_comprar",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 0
   },
   "p22": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 20
   },
   "p23": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 15
   },
   "p24": {
     "estado": "disponivel",
-    "historico": []
+    "historico": [],
+    "quantidade_litros": 10
   }
 }
