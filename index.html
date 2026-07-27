@@ -451,8 +451,12 @@ let _stockCache = {};
 async function carregarStock() {
   try {
     _stockCache = await api('GET', '/stock');
+    _sessaoActiva = true;
+    actualizarBotaoEditar();
   } catch(e) {
     console.warn('stock:', e.message);
+    _sessaoActiva = false;
+    actualizarBotaoEditar();
   }
 }
 
