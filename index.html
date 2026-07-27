@@ -1101,9 +1101,37 @@ function toggleCapa() {
 }
 
 // ═══════════════════════════════════════════
+let _sessaoActiva = false;
+
+async function verificarSessao() {
+  try {
+    const r = await fetch('/api/stock', {credentials: 'include', method: 'GET'});
+    _sessaoActiva = r.ok;
+  } catch(e) {
+    _sessaoActiva = false;
+  }
+  actualizarBotaoEditar();
+}
+
+function actualizarBotaoEditar() {
+  const btn = document.getElementById('loginBtn');
+  if (!btn) return;
+  if (_sessaoActiva) {
+    btn.innerHTML = '✏️ Editar';
+    btn.style.background = 'rgba(255,255,255,0.3)';
+    btn.title = 'Sessão activa — pode editar';
+  } else {
+    btn.innerHTML = '🔒 Editar';
+    btn.style.background = 'rgba(255,255,255,0.15)';
+    btn.title = 'Clique para fazer login e editar';
+  }
+}
+
 function fazerLogin() {
-  // Go to /api/_login — CF Access will intercept and show login
-  // After login, Access redirects back here
+  if (_sessaoActiva) {
+    mostrarToast('✏️ Sessão já activa — pode editar', 'var(--verde-m)');
+    return;
+  }
   const back = encodeURIComponent(window.location.href);
   window.location.href = '/api/_login?back=' + back;
 }
@@ -1118,6 +1146,7 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
 
 
 
