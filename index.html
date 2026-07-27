@@ -1138,8 +1138,12 @@ let _sessaoActiva = false;
 
 async function verificarSessao() {
   try {
+    // CF Access sets CF_Authorization cookie after login
+    // Check if we have it by making a credentialed request to /api/
     const r = await fetch('/api/stock', {credentials: 'include', method: 'GET'});
-    _sessaoActiva = r.ok;
+    // If we get JSON back (not HTML redirect), we're authenticated
+    const ct = r.headers.get('content-type') || '';
+    _sessaoActiva = r.ok && ct.includes('application/json');
   } catch(e) {
     _sessaoActiva = false;
   }
@@ -1165,8 +1169,9 @@ function fazerLogin() {
     mostrarToast('✏️ Sessão já activa — pode editar', 'var(--verde-m)');
     return;
   }
-  const back = encodeURIComponent(window.location.href);
-  window.location.href = '/api/_login?back=' + back;
+  // CF Access login — redirect to /api/ which is protected
+  // After login CF Access redirects back to the original URL
+  window.location.href = 'https://fornos-arvoresfruto.pages.dev/api/stock';
 }
 
 // INIT — carrega todos os registos
