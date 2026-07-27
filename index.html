@@ -947,6 +947,39 @@ async function adicionarEventoStock() {
   }
 }
 
+function editarQuantidade(pid, atual) {
+  const p = getProdutos().find(x => x.id === pid);
+  document.getElementById('qtyTitle').textContent = p ? p.nome : 'Quantidade';
+  document.getElementById('qtyPid').value = pid;
+  document.getElementById('qtyValor').value = atual || 0;
+  document.getElementById('modalQtyOverlay').classList.add('open');
+}
+
+async function guardarQuantidade() {
+  const pid = document.getElementById('qtyPid').value;
+  const qtd = parseFloat(document.getElementById('qtyValor').value);
+  if (isNaN(qtd) || qtd < 0) { alert('Valor inválido.'); return; }
+  const btn = document.querySelector('#modalQtyOverlay .btn-save');
+  btn.textContent = 'A guardar...'; btn.disabled = true;
+  if (!_stockCache) _stockCache = {};
+  if (!_stockCache[pid]) _stockCache[pid] = {estado:'disponivel', historico:[], quantidade_litros:0};
+  _stockCache[pid].quantidade_litros = qtd;
+  const p = getProdutos().find(x => x.id === pid);
+  try {
+    const r = await fetch('/api/stock/' + pid, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({estado: p.estado, historico: p.historico, quantidade_litros: qtd})
+    });
+    if (r.ok) mostrarToast('✅ Quantidade actualizada', 'var(--verde-m)');
+    else mostrarToast('❌ Erro — faz login primeiro', 'var(--vermelho)');
+  } catch(e) { mostrarToast('❌ Sem ligação', 'var(--vermelho)'); }
+  btn.textContent = 'Guardar'; btn.disabled = false;
+  document.getElementById('modalQtyOverlay').classList.remove('open');
+  renderStock();
+}
+
 function fecharModalHist() { document.getElementById('modalHistOverlay').classList.remove('open'); }
 
 // ── Modal produto ──────────────────────────
