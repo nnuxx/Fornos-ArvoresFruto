@@ -750,7 +750,16 @@ async function guardarRegisto() {
   const btn = document.querySelector('#modalOverlay .btn-save');
   btn.textContent = 'A guardar...'; btn.disabled = true;
 
-  // 1. SAVE RECORD FIRST — immediate feedback
+  // 1. Check session first
+  if (!_sessaoActiva) {
+    btn.textContent = 'Guardar'; btn.disabled = false;
+    if (confirm('Sessão expirada. Fazer login agora?')) {
+      window.location.href = 'https://fornos-arvoresfruto.pages.dev/api/stock';
+    }
+    return;
+  }
+
+  // 2. SAVE RECORD FIRST — immediate feedback
   try {
     await api('POST', `/registos/${modalId}`, {
       data: document.getElementById('novoData').value,
@@ -761,22 +770,32 @@ async function guardarRegisto() {
     });
   } catch(e) {
     btn.textContent = 'Guardar'; btn.disabled = false;
-    alert('Erro ao guardar registo: ' + e.message);
+    // Session may have expired
+    if (confirm('Erro ao guardar. Sessão expirada? Fazer login agora?')) {
+      window.location.href = 'https://fornos-arvoresfruto.pages.dev/api/stock';
+    }
     return;
   }
 
-  // 2. Close modal immediately after record saved
+  // 3. Close modal immediately
   fecharModal();
   await carregarRegistos(modalId);
   renderDetalhe(modalId);
   renderDashboard();
   mostrarToast('✅ Registo guardado!', 'var(--verde-m)');
 
-  // 3. Upload photos in background (non-blocking)
+  // 4. Upload photos in background with progress bar
   const fileIn = document.getElementById('fileIn');
   const files = Array.from(fileIn.files || []);
   if (files.length > 0) {
-    mostrarToast(`📷 A carregar ${files.length} foto${files.length>1?'s':''}...`, '#666');
+    // Show persistent progress bar
+    let progBar = document.getElementById('globalProgress');
+    if (!progBar) {
+      progBar = document.createElement('div');
+      progBar.id = 'globalProgress';
+      progBar.style.cssText = 'position:fixed;bottom:70px;left:0;right:0;z-index:500;background:#fff;border-top:1px solid #E5E7EB;padding:10px 16px;font-size:13px;font-family:DM Sans,sans-serif';
+      document.body.appendChild(progBar);
+    }
     const pasta = PASTA_MAP[modalId];
     let nextIdx = 1;
     try {
@@ -789,6 +808,7 @@ async function guardarRegisto() {
     } catch(e) {}
     let done = 0;
     for (const file of files) {
+      progBar.innerHTML = `📷 A carregar foto ${done+1} de ${files.length}...<div style="background:#E5E7EB;border-radius:4px;height:6px;margin-top:6px"><div style="background:#3D6B40;height:6px;border-radius:4px;width:${Math.round(done/files.length*100)}%"></div></div>`;
       const fname = `img${String(nextIdx).padStart(2,'0')}.jpg`;
       const resized = await resizeImage(file, 900, 78);
       try {
@@ -798,10 +818,10 @@ async function guardarRegisto() {
           body:JSON.stringify({message:`foto: ${pasta}/${fname}`,content:resized})
         });
         nextIdx++; done++;
-        mostrarToast(`📷 ${done}/${files.length} fotos carregadas...`, '#666');
       } catch(e) { console.error(e); }
     }
-    mostrarToast(`✅ ${done} foto${done>1?'s':''} carregada${done>1?'s':''}!`, 'var(--verde-m)');
+    progBar.innerHTML = `✅ ${done} foto${done>1?'s':''} carregada${done>1?'s':''}!`;
+    setTimeout(() => progBar.remove(), 3000);
   }
 }
 
@@ -1213,6 +1233,7 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
 
 
 
