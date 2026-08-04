@@ -173,6 +173,10 @@ input[type="file"]{display:none;}
 <div class="overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-title">Nova Observação</div>
+    <div id="sessaoAviso" style="display:none;background:#FEF3C7;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:#92400E;align-items:center;gap:8px">
+      <span>⚠️</span>
+      <span>Sessão expirada — <button onclick="window.location.href='/api/stock'" style="background:none;border:none;color:#92400E;font-weight:700;cursor:pointer;text-decoration:underline;font-size:13px;padding:0">fazer login</button> antes de guardar</span>
+    </div>
     <div class="fgrp"><label class="flabel">Data</label><input type="date" class="finput" id="novoData"></div>
     <div class="fgrp"><label class="flabel">pH medido</label><input type="text" class="finput" id="novoPH" placeholder="Ex: 6.0 ou 5.5-6.0"></div>
     <div class="fgrp">
@@ -715,7 +719,26 @@ function abrirModal(id) {
   document.getElementById('novoHumidade').value = '';
   document.getElementById('uploadStatus').style.display = 'none';
   document.getElementById('novoData').value = new Date().toISOString().split('T')[0];
+  // Clear any previous session warning
+  const warn = document.getElementById('sessaoAviso');
+  if (warn) warn.style.display = 'none';
   document.getElementById('modalOverlay').classList.add('open');
+  // Check session silently
+  fetch('/api/stock', {credentials: 'include'})
+    .then(r => {
+      const ct = r.headers.get('content-type') || '';
+      const ok = r.ok && ct.includes('json');
+      _sessaoActiva = ok;
+      actualizarBotaoEditar();
+      const aviso = document.getElementById('sessaoAviso');
+      if (aviso) aviso.style.display = ok ? 'none' : 'flex';
+    })
+    .catch(() => {
+      _sessaoActiva = false;
+      actualizarBotaoEditar();
+      const aviso = document.getElementById('sessaoAviso');
+      if (aviso) aviso.style.display = 'flex';
+    });
 }
 
 function fecharModal() { document.getElementById('modalOverlay').classList.remove('open'); }
