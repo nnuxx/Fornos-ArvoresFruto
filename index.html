@@ -175,6 +175,17 @@ input[type="file"]{display:none;}
     <div class="modal-title">Nova Observação</div>
     <div class="fgrp"><label class="flabel">Data</label><input type="date" class="finput" id="novoData"></div>
     <div class="fgrp"><label class="flabel">pH medido</label><input type="text" class="finput" id="novoPH" placeholder="Ex: 6.0 ou 5.5-6.0"></div>
+    <div class="fgrp">
+      <label class="flabel">Humidade do substrato</label>
+      <select class="fselect" id="novoHumidade">
+        <option value="">— não medido —</option>
+        <option value="wet+">💧💧 Wet+ (encharcado)</option>
+        <option value="wet">💧 Wet (húmido)</option>
+        <option value="nor">✅ Normal</option>
+        <option value="dry">🟡 Dry (seco)</option>
+        <option value="dry+">🔴 Dry+ (muito seco)</option>
+      </select>
+    </div>
     <div class="fgrp"><label class="flabel">Notas / Observações</label><textarea class="ftarea" id="novoDiag" placeholder="O que fizeste, o que viste, dúvidas..."></textarea></div>
     <div class="fgrp">
       <label class="flabel">Fotos</label>
@@ -701,6 +712,7 @@ function abrirModal(id) {
   document.getElementById('fotosPreview').innerHTML = '';
   document.getElementById('novoDiag').value = '';
   document.getElementById('novoPH').value = '';
+  document.getElementById('novoHumidade').value = '';
   document.getElementById('uploadStatus').style.display = 'none';
   document.getElementById('novoData').value = new Date().toISOString().split('T')[0];
   document.getElementById('modalOverlay').classList.add('open');
@@ -726,16 +738,45 @@ function previewFotos(input) {
 async function guardarRegisto() {
   const notas = document.getElementById('novoDiag').value.trim();
   const ph = document.getElementById('novoPH').value.trim();
-  if (!notas && !ph) { alert('Adiciona pelo menos uma nota ou o pH medido.'); return; }
-  const diagTxt = (ph ? 'pH medido: ' + ph + '. ' : '') + (notas || '');
+  const hum = document.getElementById('novoHumidade').value;
+  if (!notas && !ph && !hum) { alert('Adiciona pelo menos uma nota, pH ou humidade.'); return; }
 
+  const humLabels = {'wet+':'💧💧 Wet+','wet':'💧 Wet','nor':'✅ Normal','dry':'🟡 Dry','dry+':'🔴 Dry+'};
+  let diagTxt = '';
+  if (ph) diagTxt += 'pH medido: ' + ph + '. ';
+  if (hum) diagTxt += 'Humidade: ' + (humLabels[hum]||hum) + '. ';
+  if (notas) diagTxt += notas;
+
+  const btn = document.querySelector('#modalOverlay .btn-save');
+  btn.textContent = 'A guardar...'; btn.disabled = true;
+
+  // 1. SAVE RECORD FIRST — immediate feedback
+  try {
+    await api('POST', `/registos/${modalId}`, {
+      data: document.getElementById('novoData').value,
+      diagnostico: diagTxt.trim(),
+      tratamento: '⏳ Aguarda diagnóstico do Claude.',
+      urgencia: 'medio',
+      fotos: []
+    });
+  } catch(e) {
+    btn.textContent = 'Guardar'; btn.disabled = false;
+    alert('Erro ao guardar registo: ' + e.message);
+    return;
+  }
+
+  // 2. Close modal immediately after record saved
+  fecharModal();
+  await carregarRegistos(modalId);
+  renderDetalhe(modalId);
+  renderDashboard();
+  mostrarToast('✅ Registo guardado!', 'var(--verde-m)');
+
+  // 3. Upload photos in background (non-blocking)
   const fileIn = document.getElementById('fileIn');
   const files = Array.from(fileIn.files || []);
-  const status = document.getElementById('uploadStatus');
-
   if (files.length > 0) {
-    status.style.display = 'block';
-    status.textContent = 'A carregar fotos...';
+    mostrarToast(`📷 A carregar ${files.length} foto${files.length>1?'s':''}...`, '#666');
     const pasta = PASTA_MAP[modalId];
     let nextIdx = 1;
     try {
@@ -757,26 +798,10 @@ async function guardarRegisto() {
           body:JSON.stringify({message:`foto: ${pasta}/${fname}`,content:resized})
         });
         nextIdx++; done++;
-        status.textContent = `A carregar fotos... ${done}/${files.length}`;
+        mostrarToast(`📷 ${done}/${files.length} fotos carregadas...`, '#666');
       } catch(e) { console.error(e); }
     }
-    status.textContent = `✅ ${done} foto${done!==1?'s':''} carregada${done!==1?'s':''}!`;
-  }
-
-  try {
-    await api('POST', `/registos/${modalId}`, {
-      data: document.getElementById('novoData').value,
-      diagnostico: diagTxt,
-      tratamento: '⏳ Aguarda diagnóstico do Claude.',
-      urgencia: 'medio',
-      fotos: []
-    });
-    fecharModal();
-    await carregarRegistos(modalId);
-    renderDetalhe(modalId);
-    renderDashboard();
-  } catch(e) {
-    alert('Erro ao guardar registo: ' + e.message);
+    mostrarToast(`✅ ${done} foto${done>1?'s':''} carregada${done>1?'s':''}!`, 'var(--verde-m)');
   }
 }
 
@@ -1188,6 +1213,7 @@ document.getElementById('novoData').value = new Date().toISOString().split('T')[
 </script>
 </body>
 </html>
+
 
 
 
