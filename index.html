@@ -750,16 +750,7 @@ async function guardarRegisto() {
   const btn = document.querySelector('#modalOverlay .btn-save');
   btn.textContent = 'A guardar...'; btn.disabled = true;
 
-  // 1. Check session first
-  if (!_sessaoActiva) {
-    btn.textContent = 'Guardar'; btn.disabled = false;
-    if (confirm('Sessão expirada. Fazer login agora?')) {
-      window.location.href = 'https://fornos-arvoresfruto.pages.dev/api/stock';
-    }
-    return;
-  }
-
-  // 2. SAVE RECORD FIRST — immediate feedback
+  // 1. SAVE RECORD FIRST — immediate feedback
   try {
     await api('POST', `/registos/${modalId}`, {
       data: document.getElementById('novoData').value,
@@ -770,10 +761,9 @@ async function guardarRegisto() {
     });
   } catch(e) {
     btn.textContent = 'Guardar'; btn.disabled = false;
-    // Session may have expired
-    if (confirm('Erro ao guardar. Sessão expirada? Fazer login agora?')) {
-      window.location.href = 'https://fornos-arvoresfruto.pages.dev/api/stock';
-    }
+    _sessaoActiva = false;
+    actualizarBotaoEditar();
+    mostrarToast('🔒 Sessão expirada — clica Editar para fazer login', '#C17F3B');
     return;
   }
 
@@ -1183,19 +1173,11 @@ function toggleCapa() {
 }
 
 // ═══════════════════════════════════════════
-let _sessaoActiva = false;
+let _sessaoActiva = true; // assume active, carregarStock confirms
 
 async function verificarSessao() {
-  try {
-    // CF Access sets CF_Authorization cookie after login
-    // Check if we have it by making a credentialed request to /api/
-    const r = await fetch('/api/stock', {credentials: 'include', method: 'GET'});
-    // If we get JSON back (not HTML redirect), we're authenticated
-    const ct = r.headers.get('content-type') || '';
-    _sessaoActiva = r.ok && ct.includes('application/json');
-  } catch(e) {
-    _sessaoActiva = false;
-  }
+  // Session state determined by carregarStock result
+  // Assume active until proven otherwise
   actualizarBotaoEditar();
 }
 
