@@ -117,6 +117,15 @@
     "fotos": "[]"
   },
   {
+    "id": "r1_1785882708138",
+    "arvore_id": 1,
+    "data": "2026-08-04",
+    "diagnostico": "pH medido: 6.0-6.5. Humidade: 💧💧 Wet+. Choveu um pouco ontem. Não foi feita rega. Fotos no registo anterior (dia 04/ago/2026)",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
     "id": "r2_1",
     "arvore_id": 2,
     "data": "2026-06-20",
@@ -203,6 +212,15 @@
     "data": "2026-07-21",
     "diagnostico": "pH medido: 7.0 em todas as arvores. Rega leve com agua acidificada pH 5.7 (acido citrico) + CANNA Mono Hierro.",
     "tratamento": "Continuar rega acidificada consistente. Re-medir pH em 7 dias — buffering inertia ainda activo. Ferroflower/CANNA biodisponivel apos pH substrato < 6.5.",
+    "urgencia": "medio",
+    "fotos": "[]"
+  },
+  {
+    "id": "r2_1785884736657",
+    "arvore_id": 2,
+    "data": "2026-08-04",
+    "diagnostico": "pH medido: 7.0. Humidade: 💧💧 Wet+. Choveu ontem. Não foi feita rega.",
+    "tratamento": "⏳ Aguarda diagnóstico do Claude.",
     "urgencia": "medio",
     "fotos": "[]"
   },
