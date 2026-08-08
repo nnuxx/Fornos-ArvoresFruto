@@ -894,8 +894,8 @@ async function guardarRegisto() {
         const existingFotos = (reg && Array.isArray(reg.fotos)) ? reg.fotos : [];
         const allFotos = [...existingFotos, ...uploadedUrls];
         await api('PUT', `/registos/${savedRegistoId}`, { fotos: allFotos });
-        // Update local cache
-        if (reg) reg.fotos = allFotos;
+        // Reload from server to preserve all fields correctly
+        await carregarRegistos(modalId);
         renderDetalhe(modalId);
       } catch(e) { console.error('Erro ao guardar URLs fotos:', e); }
     }
@@ -971,7 +971,8 @@ async function adicionarFotosRegisto(arvoreId, rid, dataRegisto) {
         const existingFotos = (reg && Array.isArray(reg.fotos)) ? reg.fotos : [];
         const allFotos = [...existingFotos, ...uploadedUrls];
         await api('PUT', `/registos/${rid}`, { fotos: allFotos });
-        if (reg) reg.fotos = allFotos;
+        // Reload from server to avoid cache corruption (preserves urgencia etc)
+        await carregarRegistos(arvoreId);
         renderDetalhe(arvoreId);
         mostrarToast(`✅ ${done} foto${done>1?'s':''} adicionada${done>1?'s':''}!`, 'var(--verde-m)');
       } catch(e) { console.error(e); }
