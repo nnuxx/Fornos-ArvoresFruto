@@ -92,9 +92,20 @@ export default {
     if (path.startsWith('/registos/') && request.method === 'PUT') {
       const id = path.split('/')[2];
       const body = await request.json();
-      await env.DB.prepare(
-        `UPDATE registos SET data=?, diagnostico=?, tratamento=?, urgencia=? WHERE id=?`
-      ).bind(body.data, body.diagnostico, body.tratamento, body.urgencia, id).run();
+      // If only fotos is being updated (photo append after upload)
+      if (body.fotos !== undefined && !body.diagnostico) {
+        await env.DB.prepare(
+          `UPDATE registos SET fotos=? WHERE id=?`
+        ).bind(JSON.stringify(body.fotos), id).run();
+      } else if (body.fotos !== undefined) {
+        await env.DB.prepare(
+          `UPDATE registos SET data=?, diagnostico=?, tratamento=?, urgencia=?, fotos=? WHERE id=?`
+        ).bind(body.data, body.diagnostico, body.tratamento, body.urgencia, JSON.stringify(body.fotos), id).run();
+      } else {
+        await env.DB.prepare(
+          `UPDATE registos SET data=?, diagnostico=?, tratamento=?, urgencia=? WHERE id=?`
+        ).bind(body.data, body.diagnostico, body.tratamento, body.urgencia, id).run();
+      }
       return json_resp({ ok: true });
     }
 
