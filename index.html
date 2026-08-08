@@ -311,6 +311,21 @@ input[type="file"]{display:none;}
   </div>
 </div>
 
+<div class="overlay" id="modalDeleteOverlay">
+  <div class="modal">
+    <div class="modal-title">Apagar registo</div>
+    <p style="font-size:14px;color:var(--cinza);margin-bottom:16px;line-height:1.5">O que pretendes apagar?</p>
+    <div id="deleteRegFotosInfo" style="background:#FEF3C7;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:13px;color:#92400E;display:none">
+      📷 Este registo tem <strong id="deleteFotosCount"></strong> foto(s) associada(s).
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+      <button id="btnDeleteRegOnly" class="btn-save" style="background:var(--cinza)" onclick="confirmarEliminar(false)">🗑️ Só o registo</button>
+      <button id="btnDeleteRegFotos" class="btn-save" style="background:var(--vermelho);display:none" onclick="confirmarEliminar(true)">🗑️📷 Registo + fotos</button>
+      <button class="btn-cancel" onclick="document.getElementById('modalDeleteOverlay').classList.remove('open')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lb" onclick="fecharLb()">
   <button class="lb-close">✕</button>
   <img id="lbImg" src="" alt="">
@@ -1021,14 +1036,76 @@ async function guardarEdit() {
   } catch(e) { alert('Erro: '+e.message); }
 }
 
-async function eliminarRegisto(rid) {
-  if (!confirm('Eliminar este registo?')) return;
+let _deleteRid = null;
+let _deleteArvoreId = null;
+let _deleteFotos = [];
+
+function eliminarRegisto(rid) {
+  // Find the registo to check for photos
+  const regs = getRegistos(arvoreAtiva);
+  const reg = regs.find(r => r.id === rid);
+  _deleteRid = rid;
+  _deleteArvoreId = arvoreAtiva;
+  _deleteFotos = (reg && Array.isArray(reg.fotos)) ? reg.fotos : [];
+
+  const infoBox = document.getElementById('deleteRegFotosInfo');
+  const btnFotos = document.getElementById('btnDeleteRegFotos');
+  if (_deleteFotos.length > 0) {
+    document.getElementById('deleteFotosCount').textContent = _deleteFotos.length;
+    infoBox.style.display = 'block';
+    btnFotos.style.display = 'block';
+  } else {
+    infoBox.style.display = 'none';
+    btnFotos.style.display = 'none';
+  }
+  document.getElementById('modalDeleteOverlay').classList.add('open');
+}
+
+async function confirmarEliminar(apagarFotos) {
+  document.getElementById('modalDeleteOverlay').classList.remove('open');
+  const btn = document.getElementById('btnDeleteRegOnly');
+  const originalText = btn.textContent;
+  btn.textContent = 'A apagar...'; btn.disabled = true;
+
   try {
-    await api('DELETE', `/registos/${rid}`);
-    await carregarRegistos(arvoreAtiva);
-    renderDetalhe(arvoreAtiva);
+    // Delete registo from D1
+    await api('DELETE', `/registos/${_deleteRid}`);
+
+    // Optionally delete photos from GitHub
+    if (apagarFotos && _deleteFotos.length > 0) {
+      mostrarToast('🗑️ A apagar fotos...', 'var(--cinza)');
+      for (const url of _deleteFotos) {
+        try {
+          // Extract path from raw.githubusercontent URL
+          // e.g. https://raw.githubusercontent.com/nnuxx/Fornos-ArvoresFruto/main/fotos/01-nectarina/2026-08-04_img01.jpg
+          const match = url.match(/\/main\/(.+)$/);
+          if (!match) continue;
+          const filePath = match[1];
+          // Get SHA first
+          const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${filePath}`,
+            {headers:{Authorization:`token ${GH_TOKEN}`}});
+          if (!r.ok) continue;
+          const fileData = await r.json();
+          // Delete file
+          await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${filePath}`, {
+            method: 'DELETE',
+            headers: {Authorization:`token ${GH_TOKEN}`, 'Content-Type':'application/json'},
+            body: JSON.stringify({message:`remove foto: ${filePath}`, sha: fileData.sha})
+          });
+        } catch(e) { console.error('Erro ao apagar foto:', e); }
+      }
+    }
+
+    await carregarRegistos(_deleteArvoreId);
+    renderDetalhe(_deleteArvoreId);
     renderDashboard();
-  } catch(e) { alert('Erro: '+e.message); }
+    mostrarToast(apagarFotos ? '✅ Registo e fotos apagados' : '✅ Registo apagado', 'var(--verde-m)');
+  } catch(e) {
+    alert('Erro: ' + e.message);
+  } finally {
+    btn.textContent = originalText; btn.disabled = false;
+    _deleteRid = null; _deleteArvoreId = null; _deleteFotos = [];
+  }
 }
 
 // ═══════════════════════════════════════════
