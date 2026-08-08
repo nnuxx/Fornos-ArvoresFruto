@@ -711,6 +711,7 @@ async function renderDetalhe(id) {
               <span class="${bc}" style="font-size:12px;padding:3px 10px;border-radius:10px;display:inline-block">${BADGE[r.urgencia]?.[1]||''}</span>
               <div style="display:flex;gap:8px">
                 <button onclick="editarRegisto(${a.id},'${r.id}')" style="background:#F3F4F6;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--cinza)">✏️ Editar</button>
+                <button onclick="adicionarFotosRegisto(${a.id},'${r.id}','${r.data}')" style="background:#F3F4F6;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--cinza)">📷</button>
                 <button onclick="eliminarRegisto('${r.id}')" style="background:#FEE2E2;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--vermelho)">🗑️</button>
               </div>
             </div>
@@ -908,6 +909,81 @@ async function guardarRegisto() {
 // ═══════════════════════════════════════════
 // EDITAR / ELIMINAR REGISTOS
 // ═══════════════════════════════════════════
+async function adicionarFotosRegisto(arvoreId, rid, dataRegisto) {
+  // Create hidden file input, trigger it
+  let inp = document.getElementById('_fotoAddInput');
+  if (!inp) {
+    inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true;
+    inp.id = '_fotoAddInput';
+    inp.style.display = 'none';
+    document.body.appendChild(inp);
+  }
+  inp.value = '';
+  inp.onchange = async () => {
+    const files = Array.from(inp.files || []);
+    if (!files.length) return;
+
+    let progBar = document.getElementById('globalProgress');
+    if (!progBar) {
+      progBar = document.createElement('div');
+      progBar.id = 'globalProgress';
+      progBar.style.cssText = 'position:fixed;bottom:70px;left:0;right:0;z-index:500;background:#fff;border-top:1px solid #E5E7EB;padding:10px 16px;font-size:13px;font-family:DM Sans,sans-serif';
+      document.body.appendChild(progBar);
+    }
+
+    const pasta = PASTA_MAP[arvoreId];
+    const dataPrefix = dataRegisto; // YYYY-MM-DD
+
+    // Get current file count for next index
+    let nextIdx = 1;
+    try {
+      const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/fotos/${pasta}`,
+        {headers:{Authorization:`token ${GH_TOKEN}`}});
+      if (r.ok) {
+        const ex = await r.json();
+        nextIdx = ex.filter(f => /\.jpg$/i.test(f.name)).length + 1;
+      }
+    } catch(e) {}
+
+    const uploadedUrls = [];
+    let done = 0;
+    for (const file of files) {
+      progBar.innerHTML = `📷 A carregar foto ${done+1} de ${files.length}...<div style="background:#E5E7EB;border-radius:4px;height:6px;margin-top:6px"><div style="background:#3D6B40;height:6px;border-radius:4px;width:${Math.round(done/files.length*100)}%"></div></div>`;
+      const fname = `${dataPrefix}_img${String(nextIdx).padStart(2,'0')}.jpg`;
+      const resized = await resizeImage(file, 900, 78);
+      try {
+        await fetch(`https://api.github.com/repos/${GH_REPO}/contents/fotos/${pasta}/${fname}`, {
+          method:'PUT',
+          headers:{Authorization:`token ${GH_TOKEN}`,'Content-Type':'application/json'},
+          body:JSON.stringify({message:`foto: ${pasta}/${fname}`,content:resized})
+        });
+        uploadedUrls.push(`https://raw.githubusercontent.com/${GH_REPO}/main/fotos/${pasta}/${fname}`);
+        nextIdx++; done++;
+      } catch(e) { console.error(e); }
+    }
+
+    // Update D1 with new photo URLs
+    if (uploadedUrls.length > 0) {
+      try {
+        const regs = getRegistos(arvoreId);
+        const reg = regs.find(r => r.id === rid);
+        const existingFotos = (reg && Array.isArray(reg.fotos)) ? reg.fotos : [];
+        const allFotos = [...existingFotos, ...uploadedUrls];
+        await api('PUT', `/registos/${rid}`, { fotos: allFotos });
+        if (reg) reg.fotos = allFotos;
+        renderDetalhe(arvoreId);
+        mostrarToast(`✅ ${done} foto${done>1?'s':''} adicionada${done>1?'s':''}!`, 'var(--verde-m)');
+      } catch(e) { console.error(e); }
+    }
+
+    progBar.innerHTML = `✅ ${done} foto${done>1?'s':''} carregada${done>1?'s':''}!`;
+    setTimeout(() => progBar.remove(), 3000);
+    inp.value = '';
+  };
+  inp.click();
+}
+
 function editarRegisto(arvoreId, rid) {
   const regs = getRegistos(parseInt(arvoreId));
   const r = regs.find(x => x.id === rid);
