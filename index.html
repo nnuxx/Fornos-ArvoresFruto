@@ -1205,7 +1205,7 @@ async function resizeImage(file, maxW, quality) {
 // ═══════════════════════════════════════════
 function abrirLb(src) { document.getElementById('lbImg').src=src; document.getElementById('lb').classList.add('open'); }
 function fecharLb() { document.getElementById('lb').classList.remove('open'); }
-function fmtData(s) { if(!s)return''; const[y,m,d]=s.split('-'); return`${d}/${m}/${y}`; }
+function fmtData(s) { if(!s)return''; const[y,m,d]=s.split('-'); return`${y}/${m}/${d}`; }
 function toggleCapa() {
   const el = document.getElementById('capaContainer');
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
