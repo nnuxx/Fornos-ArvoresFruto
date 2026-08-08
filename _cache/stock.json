@@ -10,8 +10,14 @@
     "quantidade_litros": 0
   },
   "p04": {
-    "estado": "transito",
-    "historico": [],
+    "estado": "disponivel",
+    "historico": [
+      {
+        "data": "2026-08-08",
+        "tipo": "chegou",
+        "nota": "Fornecidos na forma de sulfato de cobre 250g e cal 250g"
+      }
+    ],
     "quantidade_litros": 0
   },
   "p05": {
