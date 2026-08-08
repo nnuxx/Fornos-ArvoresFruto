@@ -79,8 +79,12 @@ header h1{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;fl
 input[type="file"]{display:none;}
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:300;align-items:center;justify-content:center;}
 .lightbox.open{display:flex;}
-.lightbox img{max-width:100%;max-height:90vh;object-fit:contain;}
+.lightbox img{max-width:100%;max-height:85vh;object-fit:contain;}
 .lb-close{position:absolute;top:16px;right:16px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:28px;cursor:pointer;padding:12px 16px;border-radius:8px;z-index:301;}
+.lb-prev{left:8px;}
+.lb-next{right:8px;}
+.lb-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;background:rgba(0,0,0,0.4);padding:4px 12px;border-radius:20px;}
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #E5E7EB;display:flex;padding:8px 0 16px;}
 .nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--cinza);padding:4px;}
 .nbtn.active{color:var(--verde);font-weight:600;}
@@ -311,24 +315,12 @@ input[type="file"]{display:none;}
   </div>
 </div>
 
-<div class="overlay" id="modalDeleteOverlay">
-  <div class="modal">
-    <div class="modal-title">Apagar registo</div>
-    <p style="font-size:14px;color:var(--cinza);margin-bottom:16px;line-height:1.5">O que pretendes apagar?</p>
-    <div id="deleteRegFotosInfo" style="background:#FEF3C7;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:13px;color:#92400E;display:none">
-      📷 Este registo tem <strong id="deleteFotosCount"></strong> foto(s) associada(s).
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
-      <button id="btnDeleteRegOnly" class="btn-save" style="background:var(--cinza)" onclick="confirmarEliminar(false)">🗑️ Só o registo</button>
-      <button id="btnDeleteRegFotos" class="btn-save" style="background:var(--vermelho);display:none" onclick="confirmarEliminar(true)">🗑️📷 Registo + fotos</button>
-      <button class="btn-cancel" onclick="document.getElementById('modalDeleteOverlay').classList.remove('open')">Cancelar</button>
-    </div>
-  </div>
-</div>
-
-<div class="lightbox" id="lb" onclick="fecharLb()">
-  <button class="lb-close">✕</button>
+<div class="lightbox" id="lb">
+  <button class="lb-close" onclick="fecharLb()">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" onclick="lbNav(-1)">‹</button>
   <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" onclick="lbNav(1)">›</button>
+  <div class="lb-counter" id="lbCounter"></div>
 </div>
 
 <script>
@@ -688,7 +680,7 @@ async function renderDetalhe(id) {
   const legacySection = legacyFotos.length > 0 ? `
     <div class="sec-title" style="margin-top:8px">Fotos anteriores <span>${legacyFotos.length}</span></div>
     <div class="fotos-row" style="margin-bottom:16px">
-      ${legacyFotos.map(url => `<img class="foto-thumb" src="${url}" onclick="abrirLb('${url}')" loading="lazy">`).join('')}
+      ${legacyFotos.map((url,fi) => `<img class="foto-thumb" src="${url}" onclick="abrirLb('${url}',${JSON.stringify(legacyFotos)},${fi})" loading="lazy">`).join('')}
     </div>` : '';
 
   const regsHTML = regs.length === 0
@@ -706,7 +698,7 @@ async function renderDetalhe(id) {
         const regFotos = d1Fotos.length > 0 ? d1Fotos : ghFotos;
         const fotosHTML = regFotos.length > 0
           ? `<div class="fotos-row" style="margin:10px 0 4px">
-              ${regFotos.map(url => `<img class="foto-thumb" src="${url}" onclick="abrirLb('${url}')" loading="lazy">`).join('')}
+              ${regFotos.map((url,fi) => `<img class="foto-thumb" src="${url}" onclick="abrirLb('${url}',${JSON.stringify(regFotos)},${fi})" loading="lazy">`).join('')}
             </div>`
           : '';
         return `<div class="reg-card">
@@ -1036,76 +1028,14 @@ async function guardarEdit() {
   } catch(e) { alert('Erro: '+e.message); }
 }
 
-let _deleteRid = null;
-let _deleteArvoreId = null;
-let _deleteFotos = [];
-
-function eliminarRegisto(rid) {
-  // Find the registo to check for photos
-  const regs = getRegistos(arvoreAtiva);
-  const reg = regs.find(r => r.id === rid);
-  _deleteRid = rid;
-  _deleteArvoreId = arvoreAtiva;
-  _deleteFotos = (reg && Array.isArray(reg.fotos)) ? reg.fotos : [];
-
-  const infoBox = document.getElementById('deleteRegFotosInfo');
-  const btnFotos = document.getElementById('btnDeleteRegFotos');
-  if (_deleteFotos.length > 0) {
-    document.getElementById('deleteFotosCount').textContent = _deleteFotos.length;
-    infoBox.style.display = 'block';
-    btnFotos.style.display = 'block';
-  } else {
-    infoBox.style.display = 'none';
-    btnFotos.style.display = 'none';
-  }
-  document.getElementById('modalDeleteOverlay').classList.add('open');
-}
-
-async function confirmarEliminar(apagarFotos) {
-  document.getElementById('modalDeleteOverlay').classList.remove('open');
-  const btn = document.getElementById('btnDeleteRegOnly');
-  const originalText = btn.textContent;
-  btn.textContent = 'A apagar...'; btn.disabled = true;
-
+async function eliminarRegisto(rid) {
+  if (!confirm('Eliminar este registo?')) return;
   try {
-    // Delete registo from D1
-    await api('DELETE', `/registos/${_deleteRid}`);
-
-    // Optionally delete photos from GitHub
-    if (apagarFotos && _deleteFotos.length > 0) {
-      mostrarToast('🗑️ A apagar fotos...', 'var(--cinza)');
-      for (const url of _deleteFotos) {
-        try {
-          // Extract path from raw.githubusercontent URL
-          // e.g. https://raw.githubusercontent.com/nnuxx/Fornos-ArvoresFruto/main/fotos/01-nectarina/2026-08-04_img01.jpg
-          const match = url.match(/\/main\/(.+)$/);
-          if (!match) continue;
-          const filePath = match[1];
-          // Get SHA first
-          const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${filePath}`,
-            {headers:{Authorization:`token ${GH_TOKEN}`}});
-          if (!r.ok) continue;
-          const fileData = await r.json();
-          // Delete file
-          await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${filePath}`, {
-            method: 'DELETE',
-            headers: {Authorization:`token ${GH_TOKEN}`, 'Content-Type':'application/json'},
-            body: JSON.stringify({message:`remove foto: ${filePath}`, sha: fileData.sha})
-          });
-        } catch(e) { console.error('Erro ao apagar foto:', e); }
-      }
-    }
-
-    await carregarRegistos(_deleteArvoreId);
-    renderDetalhe(_deleteArvoreId);
+    await api('DELETE', `/registos/${rid}`);
+    await carregarRegistos(arvoreAtiva);
+    renderDetalhe(arvoreAtiva);
     renderDashboard();
-    mostrarToast(apagarFotos ? '✅ Registo e fotos apagados' : '✅ Registo apagado', 'var(--verde-m)');
-  } catch(e) {
-    alert('Erro: ' + e.message);
-  } finally {
-    btn.textContent = originalText; btn.disabled = false;
-    _deleteRid = null; _deleteArvoreId = null; _deleteFotos = [];
-  }
+  } catch(e) { alert('Erro: '+e.message); }
 }
 
 // ═══════════════════════════════════════════
@@ -1411,8 +1341,58 @@ async function resizeImage(file, maxW, quality) {
 // ═══════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════
-function abrirLb(src) { document.getElementById('lbImg').src=src; document.getElementById('lb').classList.add('open'); }
-function fecharLb() { document.getElementById('lb').classList.remove('open'); }
+let _lbUrls = [];
+let _lbIdx = 0;
+let _lbTouchX = null;
+
+function abrirLb(src, urls, idx) {
+  _lbUrls = urls && urls.length ? urls : [src];
+  _lbIdx = idx !== undefined ? idx : _lbUrls.indexOf(src);
+  if (_lbIdx < 0) _lbIdx = 0;
+  _lbRender();
+  document.getElementById('lb').classList.add('open');
+}
+
+function _lbRender() {
+  document.getElementById('lbImg').src = _lbUrls[_lbIdx];
+  const counter = document.getElementById('lbCounter');
+  const prev = document.getElementById('lbPrev');
+  const next = document.getElementById('lbNext');
+  if (_lbUrls.length > 1) {
+    counter.textContent = `${_lbIdx + 1} / ${_lbUrls.length}`;
+    counter.style.display = 'block';
+    prev.style.display = _lbIdx > 0 ? 'block' : 'none';
+    next.style.display = _lbIdx < _lbUrls.length - 1 ? 'block' : 'none';
+  } else {
+    counter.style.display = 'none';
+    prev.style.display = 'none';
+    next.style.display = 'none';
+  }
+}
+
+function lbNav(dir) {
+  _lbIdx = Math.max(0, Math.min(_lbUrls.length - 1, _lbIdx + dir));
+  _lbRender();
+}
+
+function fecharLb() {
+  document.getElementById('lb').classList.remove('open');
+  _lbUrls = []; _lbIdx = 0;
+}
+
+// Swipe support
+document.addEventListener('DOMContentLoaded', () => {
+  const lb = document.getElementById('lb');
+  lb.addEventListener('touchstart', e => { _lbTouchX = e.touches[0].clientX; }, {passive:true});
+  lb.addEventListener('touchend', e => {
+    if (_lbTouchX === null) return;
+    const dx = e.changedTouches[0].clientX - _lbTouchX;
+    _lbTouchX = null;
+    if (Math.abs(dx) < 40) { fecharLb(); return; } // tap to close
+    if (dx < -40 && _lbIdx < _lbUrls.length - 1) lbNav(1);  // swipe left = next
+    if (dx > 40 && _lbIdx > 0) lbNav(-1);                    // swipe right = prev
+  }, {passive:true});
+});
 function fmtData(s) { if(!s)return''; const[y,m,d]=s.split('-'); return`${y}/${m}/${d}`; }
 function toggleCapa() {
   const el = document.getElementById('capaContainer');
