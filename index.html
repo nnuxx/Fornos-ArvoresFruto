@@ -60,6 +60,8 @@ header h1{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;fl
 .reg-sec-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--cinza);margin-bottom:4px;}
 .reg-sec-text{font-size:14px;line-height:1.55;}
 .btn-novo{background:var(--terra);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;width:100%;justify-content:center;margin-top:12px;}
+.fab-nova-obs{display:none;position:fixed;bottom:72px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:448px;z-index:150;background:var(--terra);color:#fff;border:none;border-radius:14px;padding:14px 16px;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.18);letter-spacing:0.01em;}
+.fab-nova-obs.visible{display:block;}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;}
 .overlay.open{display:flex;}
 .modal{background:#fff;border-radius:20px 20px 0 0;padding:20px;width:100%;max-height:88vh;overflow-y:auto;}
@@ -161,6 +163,8 @@ input[type="file"]{display:none;}
 <div class="view" id="viewDetalhe"><div id="detalheConteudo"></div></div>
 <div class="view" id="viewStock"><div id="stockConteudo"></div></div>
 <div class="view" id="viewTarefas"><div id="tarefasConteudo"></div></div>
+
+<button class="fab-nova-obs" id="fabNovaObs" onclick="abrirModalFab()">+ Nova Observação</button>
 
 <div class="bnav">
   <button class="nbtn active" id="navD" onclick="voltarDashboard()"><span>🌳</span>Árvores</button>
@@ -602,11 +606,13 @@ function abrirArvore(id) {
   const a = ARVORES.find(x => x.id === id);
   setView('viewDetalhe', a.nome);
   document.getElementById('navD').classList.remove('active');
+  document.getElementById('fabNovaObs').classList.add('visible');
   carregarRegistos(id).then(() => renderDetalhe(id));
 }
 
 function voltarDashboard() {
   arvoreAtiva = null;
+  document.getElementById('fabNovaObs').classList.remove('visible');
   setView('viewDashboard', '🌿 Fornos-ArvoresFruto', false);
   ['navD','navS','navT','navI'].forEach(id => document.getElementById(id).classList.remove('active'));
   document.getElementById('navD').classList.add('active');
@@ -696,8 +702,7 @@ async function renderDetalhe(id) {
     </div>
     ${fotosSection}
     <div class="sec-title">Historial <span>${regs.length} registo${regs.length!==1?'s':''}</span></div>
-    ${regsHTML}
-    <button class="btn-novo" onclick="abrirModal(${id})">+ Nova Observação</button>`;
+    ${regsHTML}`;
 }
 
 function toggleReg(head) {
@@ -711,6 +716,8 @@ function toggleReg(head) {
 // ═══════════════════════════════════════════
 // MODAL NOVA OBSERVAÇÃO
 // ═══════════════════════════════════════════
+function abrirModalFab() { if (arvoreAtiva) abrirModal(arvoreAtiva); }
+
 function abrirModal(id) {
   modalId = id; fotosLocais = [];
   document.getElementById('fotosPreview').innerHTML = '';
@@ -891,6 +898,7 @@ async function eliminarRegisto(rid) {
 // STOCK
 // ═══════════════════════════════════════════
 async function mostrarStock() {
+  document.getElementById('fabNovaObs').classList.remove('visible');
   setView('viewStock', '🧪 Stock');
   document.getElementById('navS').classList.add('active');
   ['navD','navT','navI'].forEach(id => document.getElementById(id).classList.remove('active'));
@@ -1089,6 +1097,7 @@ async function guardarProduto() {
 // TAREFAS
 // ═══════════════════════════════════════════
 async function mostrarTarefas() {
+  document.getElementById('fabNovaObs').classList.remove('visible');
   setView('viewTarefas', '✅ Tarefas');
   document.getElementById('navT').classList.add('active');
   ['navD','navS','navI'].forEach(id => document.getElementById(id).classList.remove('active'));
@@ -1142,6 +1151,7 @@ async function resetTarefas() {
 // AJUDA
 // ═══════════════════════════════════════════
 function mostrarAjuda() {
+  document.getElementById('fabNovaObs').classList.remove('visible');
   setView('viewDetalhe', 'ℹ️ Ajuda');
   document.getElementById('navI').classList.add('active');
   ['navD','navS','navT'].forEach(id => document.getElementById(id).classList.remove('active'));
